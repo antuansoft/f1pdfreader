@@ -26,18 +26,19 @@ def parse1():
     for link in links:
         if (type(link.get('class')) is not type(None)):
             if (link.get('class')[0] == '_1TRrV'):
-                if rowCount == 1:
-                    name = print(link.string)
-                elif rowCount == 2:
-                    country = print(link.string)
-                elif rowCount == 3:
-                    scuderia = print(link.string)
+                if (rowCount == 1):
+                    name = link.string
+                elif (rowCount == 2):
+                    country = link.string
+                elif (rowCount == 3):
+                    scuderia = link.string
                     print (name + ":" + country + ":" + scuderia)
                     rowCount = 0
-        print(i)
-        print(rowCount)
+                rowCount = rowCount + 1
+        #print(i)
+        #print(rowCount)
         i = i + 1
-        rowCount = rowCount + 1
+        
 
 if __name__ == "__main__":
     main()  
