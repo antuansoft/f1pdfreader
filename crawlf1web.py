@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from utils import *
 
 
 drivers_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix"
@@ -9,11 +10,77 @@ race_classification_url: str = "https://fiaresultsandstatistics.motorsportstats.
 def main():
     print("Parsing drivers in: " +  drivers_url)
     #parseDrivers1()
-    parseDriversNumbers()
+    parseDrivers()
+    parseRaceClassification()
 
 
-def parseDriversNumbers():
-    print("start")
+def parseRaceClassification():
+    print("start Race Classification")
+    html_text: str = requests.get(race_classification_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    links:list = soup.find_all('td')
+    print("links encontrados:" + str(len(links)))
+    i:int = 1
+    rowCount: int = 1
+    position:str = ""
+    number:str = ""
+    driver:str = ""
+    nationality:str = ""
+    scuderia:str = ""
+    laps:str = ""
+    time:str = ""
+    gap2leader:str = ""
+    interval2next:str = ""
+    kph:str = ""
+    besttime:str = ""
+    bestlap:str = ""
+    for link in links:
+        if (rowCount == 1):
+            position = getString(link.string)
+        elif (rowCount == 2):
+            number = getString(link.string)
+        elif (rowCount == 3):
+            driver = getString(link.string)
+        elif (rowCount == 4):
+            nationality = getString(link.string)
+        elif (rowCount == 5):
+            scuderia = getString(link.string)
+        elif (rowCount == 6):
+            laps = getString(link.string)
+        elif (rowCount == 7):
+            time = getString(link.string)            
+        elif (rowCount == 8):
+            gap2leader = getString(link.string)
+        elif (rowCount == 9):
+            interval2next = getString(link.string)
+        elif (rowCount == 10):
+            kph = getString(link.string)
+        elif (rowCount == 11):
+            besttime = getString(link.string)
+        elif (rowCount == 12):
+            bestlap = getString(link.string)
+            print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
+            rowCount = 0
+            position = ""
+            number = ""
+            driver = ""
+            nationality = ""
+            scuderia = ""
+            laps = ""
+            time = ""
+            gap2leader = ""
+            interval2next = ""
+            kph = ""
+            besttime = ""
+            bestlap = ""
+        rowCount = rowCount + 1        
+
+    print("end  Race Classification")
+
+def parseDrivers():
+    print("start Drivers")
     html_text: str = requests.get(drivers_url).text
     soup = BeautifulSoup(html_text, 'html.parser')
     print("parseado:"+ soup.title.string)
@@ -30,21 +97,27 @@ def parseDriversNumbers():
     engine:str = ""
     for link in links:
         if (rowCount == 1):
-            number = link.string
+            number = getString(link.string)
         elif (rowCount == 2):
-            driver = link.string
+            driver = getString(link.string)
         elif (rowCount == 3):
-            nationality = link.string
+            nationality = getString(link.string)
         elif (rowCount == 4):
-            scuderia = link.string
+            scuderia = getString(link.string)
         elif (rowCount == 5):
-            car = link.string
+            car = getString(link.string)
         elif (rowCount == 6):
-            engine = link.string
+            engine = getString(link.string)
             print (number + ":" + driver + ":" + nationality + ":" + ":" + scuderia + ":" + car + ":" + engine)
+            number = ""
+            driver = ""
+            nationality = ""
+            scuderia = ""
+            car = ""
+            engine = ""
             rowCount = 0
         rowCount = rowCount + 1        
-    print("end")
+    print("end Drivers")
 
 def parseDrivers1():
     print("start")
