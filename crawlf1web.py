@@ -7,13 +7,44 @@ drivers_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/
 race_classification_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification"
 starting_grid_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/9bb465b8-a1d7-4d67-beaf-c6b7a310d65a"
 driver_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/drivers"
+teams_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams"
+
 def main():
     #parseDrivers1()
     #parseDrivers()
     #parseRaceClassification()
     #parseStartingGrid()
-    parseDriverStandings()
+    #parseDriverStandings()
+    parseTeamsStandings()
 
+def parseTeamsStandings():
+    print("start Teams Standings")
+    html_text: str = requests.get(teams_standings_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    links:list = soup.find_all('td')
+    print("links encontrados:" + str(len(links)))
+    i:int = 1
+    rowCount:int = 1
+    position:str = ""
+    team:str = ""
+    points:str = ""
+    for link in links:
+        if (rowCount == 1):
+            position = getString(link.string)
+        elif (rowCount == 2):
+            team = getString(link.string)
+        elif (rowCount == 3):
+            points = getString(link.string)
+            print (position +":" +team + ":" + points)
+            rowCount = 0
+            position = ""
+            team = ""
+            points = ""
+        rowCount = rowCount + 1
+    
+    print("end Teams Standings")
 
 def parseDriverStandings():
     print("start Driver Standings")
