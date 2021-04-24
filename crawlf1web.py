@@ -8,6 +8,7 @@ race_classification_url: str = "https://fiaresultsandstatistics.motorsportstats.
 starting_grid_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/9bb465b8-a1d7-4d67-beaf-c6b7a310d65a"
 driver_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/drivers"
 teams_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams"
+pit_stops_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop"
 
 def main():
     #parseDrivers1()
@@ -15,7 +16,53 @@ def main():
     #parseRaceClassification()
     #parseStartingGrid()
     #parseDriverStandings()
-    parseTeamsStandings()
+    #parseTeamsStandings()
+    parsePitStop()
+
+
+def parsePitStop():
+    print("start  Pit Stops")
+    html_text: str = requests.get(pit_stops_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    links:list = soup.find_all('td')
+    print("links encontrados:" + str(len(links)))
+    i:int = 1
+    rowCount:int = 1
+    number:str = ""
+    driver:str = ""
+    team:str = ""
+    lap:str = ""
+    stop:str = ""
+    time:str = ""
+    timeTotal:str = ""
+    for link in links:
+        if (rowCount == 1):
+            number = getString(link.string)
+        elif (rowCount == 2):
+            driver = getString(link.string)
+        elif (rowCount == 3):
+            team = getString(link.string)
+        elif (rowCount == 4):
+            lap = getString(link.string)
+        elif (rowCount == 5):
+            stop = getString(link.string)            
+        elif (rowCount == 6):
+            time = getString(link.string)            
+        elif (rowCount == 7):
+            timeTotal = getString(link.string)            
+            print (number +":" +driver + ":" + team + ":" + lap + ":" + stop + ":" + time + ":" + timeTotal)
+            rowCount = 0
+            number = ""
+            driver = ""
+            team = ""
+            lap = ""
+            stop = ""
+            time = ""
+            timeTotal = ""
+        rowCount = rowCount + 1
+    print("end Pit Stops")
 
 def parseTeamsStandings():
     print("start Teams Standings")
