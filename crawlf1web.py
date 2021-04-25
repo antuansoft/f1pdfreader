@@ -9,7 +9,7 @@ starting_grid_url: str = "https://fiaresultsandstatistics.motorsportstats.com/re
 driver_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/drivers"
 teams_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams"
 pit_stops_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop"
-
+fastest_laps_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap"
 def main():
     #parseDrivers1()
     #parseDrivers()
@@ -17,8 +17,53 @@ def main():
     #parseStartingGrid()
     #parseDriverStandings()
     #parseTeamsStandings()
-    parsePitStop()
+    #parsePitStop()
+    parseFastestLaps()
 
+
+def parseFastestLaps():
+    print("start  Fastest Laps")
+    html_text: str = requests.get(fastest_laps_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    links:list = soup.find_all('td')
+    print("links encontrados:" + str(len(links)))
+    i:int = 1
+    rowCount:int = 1
+    position:str = "" 
+    number:str = ""
+    driver:str = ""
+    team:str = ""
+    time:str = ""
+    lap:str = ""
+    gap:str = ""
+    for link in links:
+        if (rowCount == 1):
+            position = getString(link.string)
+        elif (rowCount == 2):
+            number = getString(link.string)
+        elif (rowCount == 3):
+            driver = getString(link.string)
+        elif (rowCount == 4):
+            team = getString(link.string)
+        elif (rowCount == 5):
+            time = getString(link.string)            
+        elif (rowCount == 6):
+            lap = getString(link.string)            
+        elif (rowCount == 7):
+            gap = getString(link.string)            
+            print (position +":" + number +":" +driver + ":" + team + ":" + time + ":" + lap + ":" + gap )
+            rowCount = 0
+            position = "" 
+            number = ""
+            driver = ""
+            team = ""
+            time = ""
+            lap = ""
+            gap = ""
+        rowCount = rowCount + 1
+    print("end Fastest Laps")
 
 def parsePitStop():
     print("start  Pit Stops")
