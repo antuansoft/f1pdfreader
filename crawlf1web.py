@@ -31,18 +31,27 @@ def parseLapChart():
     print("---------------------")
     lap_links:list = soup.find_all('td',class_='_2sWDi')
     print("links encontrados:" + str(len(lap_links)))
-    positions:list = soup.find_all('div',class_='_1BvfV',limit=len(lap_links*20))
+    positions:list = soup.find_all('div',class_='_1BvfV')
     print("links encontrados:" + str(len(positions)))
     lap: str = ""
+    number: str = ""
+    #for i in range(len(lap_links)):
+    lap_index:int = 0
     for i in range(len(lap_links)):
+        # print("###",end=str(i))
+        # print()
         print()
-        lap = getString(lap_links[i].string)
-        print(lap+":", end='')  
-        for i in range(len(positions)):
-            pos = getString(positions[i].string)
-            print(pos+" ", end='')
-    
-
+        # print(getString(positions[i].string))
+        for j in range(20):
+            if (j==0):
+                lap = getString(lap_links[lap_index].string)
+                print(lap+":", end='')
+            number = getString(positions[i+(j*len(lap_links))].string)
+            print(number, end=',')
+            if (j==20):
+                print()
+        lap_index= lap_index +1     
+    print()
     print("end  Lap Chart")
 
 def parseFastestLaps():
