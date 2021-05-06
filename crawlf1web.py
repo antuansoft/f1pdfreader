@@ -10,6 +10,7 @@ driver_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com
 teams_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams"
 pit_stops_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop"
 fastest_laps_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap"
+lap_chart_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapChart"
 def main():
     #parseDrivers1()
     #parseDrivers()
@@ -18,8 +19,31 @@ def main():
     #parseDriverStandings()
     #parseTeamsStandings()
     #parsePitStop()
-    parseFastestLaps()
+    #parseFastestLaps()
+    parseLapChart()
 
+
+def parseLapChart():
+    print("start  Lap Chart")
+    html_text: str = requests.get(lap_chart_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    lap_links:list = soup.find_all('td',class_='_2sWDi')
+    print("links encontrados:" + str(len(lap_links)))
+    positions:list = soup.find_all('div',class_='_1BvfV',limit=len(lap_links*20))
+    print("links encontrados:" + str(len(positions)))
+    lap: str = ""
+    for i in range(len(lap_links)):
+        print()
+        lap = getString(lap_links[i].string)
+        print(lap+":", end='')  
+        for i in range(len(positions)):
+            pos = getString(positions[i].string)
+            print(pos+" ", end='')
+    
+
+    print("end  Lap Chart")
 
 def parseFastestLaps():
     print("start  Fastest Laps")
