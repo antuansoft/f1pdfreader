@@ -1,5 +1,7 @@
+from typing import Type
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import Script
 from utils import *
 
 
@@ -11,6 +13,9 @@ teams_standings_url: str = "https://fiaresultsandstatistics.motorsportstats.com/
 pit_stops_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop"
 fastest_laps_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap"
 lap_chart_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapChart"
+lap_times_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapTime"
+
+
 def main():
     #parseDrivers1()
     #parseDrivers()
@@ -20,8 +25,29 @@ def main():
     #parseTeamsStandings()
     #parsePitStop()
     #parseFastestLaps()
-    parseLapChart()
+    #parseLapChart()
+    parseLapTimes()
 
+
+def parseLapTimes():
+    print("start  Lap Chart")
+    html_text: str = requests.get(lap_times_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    lap_links:list = soup.find_all('script')
+    print("links encontrados:" + str(len(lap_links)))
+    s: str = "This be a string"
+    if s.find("is") == -1:
+        print("No 'is' here!")
+    else:
+        print("Found 'is' in the string.")
+    for link in lap_links:
+        valueStr: str = str(link.string)
+        if (valueStr.find("window.App")==0):
+            print(link.string)
+
+    print("end  Lap Times")
 
 def parseLapChart():
     print("start  Lap Chart")
@@ -35,13 +61,9 @@ def parseLapChart():
     print("links encontrados:" + str(len(positions)))
     lap: str = ""
     number: str = ""
-    #for i in range(len(lap_links)):
     lap_index:int = 0
     for i in range(len(lap_links)):
-        # print("###",end=str(i))
-        # print()
         print()
-        # print(getString(positions[i].string))
         for j in range(20):
             if (j==0):
                 lap = getString(lap_links[lap_index].string)
