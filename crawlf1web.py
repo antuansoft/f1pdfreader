@@ -1,5 +1,6 @@
-from typing import Type
+from typing import Any, Type
 import requests
+import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
 from utils import *
@@ -14,6 +15,7 @@ pit_stops_url: str = "https://fiaresultsandstatistics.motorsportstats.com/result
 fastest_laps_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap"
 lap_chart_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapChart"
 lap_times_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapTime"
+tyres_url: str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 
 
 def main():
@@ -26,8 +28,11 @@ def main():
     #parsePitStop()
     #parseFastestLaps()
     #parseLapChart()
-    parseLapTimes()
+    #parseLapTimes()
+    parseTyres()
 
+def parseTyres():
+    pass
 
 def parseLapTimes():
     print("start  Lap Chart")
@@ -37,15 +42,24 @@ def parseLapTimes():
     print("---------------------")
     lap_links:list = soup.find_all('script')
     print("links encontrados:" + str(len(lap_links)))
-    s: str = "This be a string"
-    if s.find("is") == -1:
-        print("No 'is' here!")
-    else:
-        print("Found 'is' in the string.")
+    value_to_find: str = "window.App="
+    data: str
+    json_data: Any
+    pilots: list
     for link in lap_links:
         valueStr: str = str(link.string)
-        if (valueStr.find("window.App")==0):
-            print(link.string)
+        if (valueStr.find(value_to_find)==0):
+            data = link.string
+            data = data[len(value_to_find):]
+            json_data = json.loads(data)
+            pilots = json_data["state"]['session']['stats']['data']
+            laps: list
+            for pilot in pilots:
+                print(pilot['carNumber']+"-"+pilot['driver']['name'])
+                laps = pilot['laps']
+                for lap in laps:
+                    print(str(lap['lap'])+":"+str(lap['time']))
+
 
     print("end  Lap Times")
 
