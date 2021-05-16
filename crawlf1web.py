@@ -32,7 +32,25 @@ def main():
     parseTyres()
 
 def parseTyres():
-    pass
+
+    print("start  Tyres")
+    html_text: str = requests.get(tyres_url).text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    print("parseado:"+ soup.title.string)
+    print("---------------------")
+    links:list = soup.find_all('table',class_='thin')
+    print("links encontrados:" + str(len(links)))
+    value_to_find: str = "Stint"
+    for link in links:
+        valueStr: str = str(link.thead)
+        if (valueStr.find(value_to_find)>-1):
+            trs: list = link.tbody.find_all('tr')
+            for tr in trs:
+                stints: list = tr.find_all('td')
+                for stint in stints:
+                    print(stint.string,end=' ')
+                print()
+
 
 def parseLapTimes():
     print("start  Lap Chart")
