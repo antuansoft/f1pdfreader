@@ -4,7 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
 from utils import *
-
+from driver import *
 
 drivers_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix"
 race_classification_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification"
@@ -17,19 +17,19 @@ lap_chart_url: str = "https://fiaresultsandstatistics.motorsportstats.com/result
 lap_times_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapTime"
 tyres_url: str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 
-
+drivers:dict = dict() 
 def main():
-    #parseDrivers1()
-    #parseDrivers()
-    #parseRaceClassification()
-    #parseStartingGrid()
-    #parseDriverStandings()
-    #parseTeamsStandings()
-    #parsePitStop()
-    #parseFastestLaps()
-    #parseLapChart()
-    #parseLapTimes()
-    parseTyres()
+    # parseDrivers1()
+    parseDrivers()
+    # parseRaceClassification()
+    # parseStartingGrid()
+    # parseDriverStandings()
+    # parseTeamsStandings()
+    # parsePitStop()
+    # parseFastestLaps()
+    # parseLapChart()
+    # parseLapTimes()
+    # parseTyres()
 
 def parseTyres():
 
@@ -436,7 +436,8 @@ def parseDrivers1():
     name:str = ""
     country:str = ""
     scuderia:str = ""
-    for link in links:
+    driver:Driver    
+    for link in links:        
         if (type(link.get('class')) is not type(None)):
             if (link.get('class')[0] == '_1TRrV'):
                 if (rowCount == 1):
@@ -446,12 +447,17 @@ def parseDrivers1():
                 elif (rowCount == 3):
                     scuderia = link.string
                     print (name + ":" + country + ":" + scuderia)
+                    driver = Driver(name,country,scuderia)
+                    #print(driver)
+                    drivers[driver.name]=driver
                     rowCount = 0
                 rowCount = rowCount + 1
         #print(i)
         #print(rowCount)
         i = i + 1
-    print("end")   
+    print("end") 
+    print("-----------------")
+    #print(drivers)  
 
 if __name__ == "__main__":
     main()  
