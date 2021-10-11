@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from bs4.element import Script
 from utils import *
 from driver import *
+from team import *
 
 drivers_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix"
 race_classification_url: str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification"
@@ -18,6 +19,7 @@ lap_times_url: str = "https://fiaresultsandstatistics.motorsportstats.com/result
 tyres_url: str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 
 drivers:dict = dict() 
+teams:dict = dict() 
 def main():
     # parseDrivers1()
     parseDrivers()
@@ -399,6 +401,7 @@ def parseDrivers():
     scuderia:str = ""
     car:str = ""
     engine:str = ""
+    driver: Driver
     for link in links:
         if (rowCount == 1):
             number = getString(link.string)
@@ -412,7 +415,11 @@ def parseDrivers():
             car = getString(link.string)
         elif (rowCount == 6):
             engine = getString(link.string)
-            print (number + ":" + driver + ":" + nationality + ":" + ":" + scuderia + ":" + car + ":" + engine)
+            # print (number + ":" + driver + ":" + nationality + ":" + ":" + scuderia + ":" + car + ":" + engine)
+            driver = Driver(number,driver,nationality,scuderia,car,engine)
+            team = Team(scuderia,car,engine)
+            drivers[driver.number]=driver
+            teams[team.name] = team
             number = ""
             driver = ""
             nationality = ""
@@ -420,7 +427,8 @@ def parseDrivers():
             car = ""
             engine = ""
             rowCount = 0
-        rowCount = rowCount + 1        
+        rowCount = rowCount + 1
+    print(teams)
     print("end Drivers")
 
 def parseDrivers1():
