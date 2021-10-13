@@ -3,6 +3,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
+from raceresult import RaceResult
 from utils import *
 from driver import *
 from team import *
@@ -20,10 +21,11 @@ tyres_url: str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-in
 
 drivers:dict = dict() 
 teams:dict = dict() 
+raceResuts = []
 def main():
     # parseDrivers1()
-    parseDrivers()
-    # parseRaceClassification()
+    # parseDrivers()
+    parseRaceClassification()
     # parseStartingGrid()
     # parseDriverStandings()
     # parseTeamsStandings()
@@ -342,6 +344,7 @@ def parseRaceClassification():
     kph:str = ""
     besttime:str = ""
     bestlap:str = ""
+    raceResult: RaceResult
     for link in links:
         if (rowCount == 1):
             position = getString(link.string)
@@ -367,7 +370,9 @@ def parseRaceClassification():
             besttime = getString(link.string)
         elif (rowCount == 12):
             bestlap = getString(link.string)
-            print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
+            raceResult = RaceResult(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
+            raceResuts.append(raceResult)
+            # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
             rowCount = 0
             position = ""
             number = ""
@@ -381,12 +386,13 @@ def parseRaceClassification():
             kph = ""
             besttime = ""
             bestlap = ""
-        rowCount = rowCount + 1        
-
+        rowCount = rowCount + 1                
     print("end  Race Classification")
+    for race in raceResuts:
+        print(race)
 
 def parseDrivers():
-    print("start Drivers")
+    print("start Drivers and teams")
     html_text: str = requests.get(drivers_url).text
     soup = BeautifulSoup(html_text, 'html.parser')
     print("parseado:"+ soup.title.string)
@@ -429,7 +435,7 @@ def parseDrivers():
             rowCount = 0
         rowCount = rowCount + 1
     print(teams)
-    print("end Drivers")
+    print("end Drivers and teams")
 
 def parseDrivers1():
     print("start")

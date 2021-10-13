@@ -9,4 +9,4 @@ class Team:
         self.engine = engine
 
     def __str__(self):
-        return (self.name + ":" + self.country + ":" + self.team)
+        return (self.name + ":" + self.car + ":" + self.engine)
