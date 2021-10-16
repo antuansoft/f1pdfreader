@@ -3,7 +3,10 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
+from driverStanding import DriverStanding
 from raceresult import RaceResult
+from startinggrid import StartingGrid
+from teamStanding import TeamStanding
 from utils import *
 from driver import *
 from team import *
@@ -22,13 +25,16 @@ tyres_url: str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-in
 drivers:dict = dict() 
 teams:dict = dict() 
 raceResuts = []
+startingGrids = []
+driverStandings = []
+teamStandings = []
 def main():
     # parseDrivers1()
     # parseDrivers()
-    parseRaceClassification()
+    # parseRaceClassification()
     # parseStartingGrid()
     # parseDriverStandings()
-    # parseTeamsStandings()
+    parseTeamsStandings()
     # parsePitStop()
     # parseFastestLaps()
     # parseLapChart()
@@ -220,13 +226,16 @@ def parseTeamsStandings():
             team = getString(link.string)
         elif (rowCount == 3):
             points = getString(link.string)
-            print (position +":" +team + ":" + points)
+            # print (position +":" +team + ":" + points)
+            teamStanding = TeamStanding(position,team,points)
+            teamStandings.append(teamStanding)
             rowCount = 0
             position = ""
             team = ""
             points = ""
         rowCount = rowCount + 1
-    
+    for standing in teamStandings:
+        print(standing)
     print("end Teams Standings")
 
 def parseDriverStandings():
@@ -242,6 +251,7 @@ def parseDriverStandings():
     position:str = ""
     driver:str = ""
     points:str = ""
+    driverStanding: DriverStanding
     for link in links:
         if (rowCount == 1):
             position = getString(link.string)
@@ -249,13 +259,16 @@ def parseDriverStandings():
             driver = getString(link.string)
         elif (rowCount == 3):
             points = getString(link.string)
-            print (position +":" +driver + ":" + points)
+            # print (position +":" +driver + ":" + points)
+            driverStanding = DriverStanding(position,driver,points)
+            driverStandings.append(driverStanding)
             rowCount = 0
             position = ""
             driver = ""
             points = ""
         rowCount = rowCount + 1
-    
+    for standing in driverStandings:
+        print(standing)
     print("end Driver Standings")
 def parseStartingGrid():
     print("start Starting Grid")
@@ -279,6 +292,7 @@ def parseStartingGrid():
     kph:str = ""
     besttime:str = ""
     bestlap:str = ""
+    startingGrid: StartingGrid
     for link in links:
         if (rowCount == 1):
             position = getString(link.string)
@@ -304,7 +318,9 @@ def parseStartingGrid():
             besttime = getString(link.string)
         elif (rowCount == 12):
             bestlap = getString(link.string)
-            print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
+            # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
+            startingGrid = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
+            startingGrids.append(startingGrid) 
             rowCount = 0
             position = ""
             number = ""
@@ -319,7 +335,8 @@ def parseStartingGrid():
             besttime = ""
             bestlap = ""
         rowCount = rowCount + 1        
-
+        for grid in startingGrids:
+            print(grid)
 
     print("End Starting Grid")
 def parseRaceClassification():
@@ -461,7 +478,7 @@ def parseDrivers1():
                 elif (rowCount == 3):
                     scuderia = link.string
                     print (name + ":" + country + ":" + scuderia)
-                    driver = Driver(name,country,scuderia)
+                    driver = Driver(name,country,None,scuderia,None,None)
                     #print(driver)
                     drivers[driver.name]=driver
                     rowCount = 0
