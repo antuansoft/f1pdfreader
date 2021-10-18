@@ -4,6 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
 from driverStanding import DriverStanding
+from pitStop import PitStop
 from raceresult import RaceResult
 from startinggrid import StartingGrid
 from teamStanding import TeamStanding
@@ -28,14 +29,15 @@ raceResuts = []
 startingGrids = []
 driverStandings = []
 teamStandings = []
+pitStops:dict = dict()
 def main():
     # parseDrivers1()
     # parseDrivers()
     # parseRaceClassification()
     # parseStartingGrid()
     # parseDriverStandings()
-    parseTeamsStandings()
-    # parsePitStop()
+    # parseTeamsStandings()
+    parsePitStop()
     # parseFastestLaps()
     # parseLapChart()
     # parseLapTimes()
@@ -194,7 +196,15 @@ def parsePitStop():
             time = getString(link.string)            
         elif (rowCount == 7):
             timeTotal = getString(link.string)            
-            print (number +":" +driver + ":" + team + ":" + lap + ":" + stop + ":" + time + ":" + timeTotal)
+            # print (number +":" +driver + ":" + team + ":" + lap + ":" + stop + ":" + time + ":" + timeTotal)
+            pitStop = PitStop(number,driver,team,lap,stop,time,timeTotal)
+            pitStopList = pitStops.get(number)
+            if (pitStopList == None):
+                pitStopsListTmp = []
+                pitStopsListTmp.append(pitStop)
+                pitStops[number] = pitStopsListTmp
+            else:
+                pitStopList.append(pitStop)
             rowCount = 0
             number = ""
             driver = ""
@@ -205,6 +215,7 @@ def parsePitStop():
             timeTotal = ""
         rowCount = rowCount + 1
     print("end Pit Stops")
+    print(pitStops.values())
 
 def parseTeamsStandings():
     print("start Teams Standings")
