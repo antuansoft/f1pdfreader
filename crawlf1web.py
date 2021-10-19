@@ -37,8 +37,8 @@ def main():
     # parseStartingGrid()
     # parseDriverStandings()
     # parseTeamsStandings()
-    parsePitStop()
-    # parseFastestLaps()
+    # parsePitStop()
+    parseFastestLaps()
     # parseLapChart()
     # parseLapTimes()
     # parseTyres()
@@ -214,8 +214,10 @@ def parsePitStop():
             time = ""
             timeTotal = ""
         rowCount = rowCount + 1
+    for pitStopKey in pitStops.keys():
+        for pitStoptmp in pitStops[pitStopKey]:
+          print(pitStoptmp)
     print("end Pit Stops")
-    print(pitStops.values())
 
 def parseTeamsStandings():
     print("start Teams Standings")
