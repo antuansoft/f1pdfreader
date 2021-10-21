@@ -4,6 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from bs4.element import Script
 from driverStanding import DriverStanding
+from fastestlap import FastestLap
 from pitStop import PitStop
 from raceresult import RaceResult
 from startinggrid import StartingGrid
@@ -30,6 +31,7 @@ startingGrids = []
 driverStandings = []
 teamStandings = []
 pitStops:dict = dict()
+fastestLaps = []
 def main():
     # parseDrivers1()
     # parseDrivers()
@@ -137,6 +139,7 @@ def parseFastestLaps():
     time:str = ""
     lap:str = ""
     gap:str = ""
+    fastestLap: FastestLap
     for link in links:
         if (rowCount == 1):
             position = getString(link.string)
@@ -152,7 +155,9 @@ def parseFastestLaps():
             lap = getString(link.string)            
         elif (rowCount == 7):
             gap = getString(link.string)            
-            print (position +":" + number +":" +driver + ":" + team + ":" + time + ":" + lap + ":" + gap )
+            #   print (position +":" + number +":" +driver + ":" + team + ":" + time + ":" + lap + ":" + gap )
+            fastestLap = FastestLap(position, number, driver, team,time,lap,gap)
+            fastestLaps.append(fastestLap)
             rowCount = 0
             position = "" 
             number = ""
@@ -163,6 +168,8 @@ def parseFastestLaps():
             gap = ""
         rowCount = rowCount + 1
     print("end Fastest Laps")
+    for fL in fastestLaps:
+        print(fL)
 
 def parsePitStop():
     print("start  Pit Stops")
