@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from bs4.element import Script
 from driverStanding import DriverStanding
 from fastestlap import FastestLap
+from lapchart import LapChart
 from pitStop import PitStop
 from raceresult import RaceResult
 from startinggrid import StartingGrid
@@ -32,6 +33,7 @@ driverStandings = []
 teamStandings = []
 pitStops:dict = dict()
 fastestLaps = []
+lapCharts = []
 def main():
     # parseDrivers1()
     # parseDrivers()
@@ -40,8 +42,8 @@ def main():
     # parseDriverStandings()
     # parseTeamsStandings()
     # parsePitStop()
-    parseFastestLaps()
-    # parseLapChart()
+    # parseFastestLaps()
+    parseLapChart()
     # parseLapTimes()
     # parseTyres()
 
@@ -109,19 +111,24 @@ def parseLapChart():
     number: str = ""
     lap_index:int = 0
     for i in range(len(lap_links)):
-        print()
+        # print()
+        lapChart:LapChart = None
         for j in range(20):
             if (j==0):
                 lap = getString(lap_links[lap_index].string)
-                print(lap+":", end='')
+                lapChart = LapChart(lap)
+                # print(lap+":", end='')
             number = getString(positions[i+(j*len(lap_links))].string)
+            lapChart.cars.append(number)
             print(number, end=',')
-            if (j==20):
-                print()
-        lap_index= lap_index +1     
-    print()
+            # if (j==20):
+            #    print()
+        lap_index= lap_index +1
+        lapCharts.append(lapChart)
+    # print()
+    for lc in lapCharts:
+        print(lc)
     print("end  Lap Chart")
-
 def parseFastestLaps():
     print("start  Fastest Laps")
     html_text: str = requests.get(fastest_laps_url).text
