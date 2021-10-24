@@ -6,6 +6,7 @@ from bs4.element import Script
 from driverStanding import DriverStanding
 from fastestlap import FastestLap
 from lapchart import LapChart
+from laptime import LapTime
 from pitStop import PitStop
 from raceresult import RaceResult
 from startinggrid import StartingGrid
@@ -34,6 +35,7 @@ teamStandings = []
 pitStops:dict = dict()
 fastestLaps = []
 lapCharts = []
+lapTimes:dict = dict()
 def main():
     # parseDrivers1()
     # parseDrivers()
@@ -43,8 +45,8 @@ def main():
     # parseTeamsStandings()
     # parsePitStop()
     # parseFastestLaps()
-    parseLapChart()
-    # parseLapTimes()
+    # parseLapChart()
+    parseLapTimes()
     # parseTyres()
 
 def parseTyres():
@@ -89,12 +91,24 @@ def parseLapTimes():
             pilots = json_data["state"]['session']['stats']['data']
             laps: list
             for pilot in pilots:
-                print(pilot['carNumber']+"-"+pilot['driver']['name'])
+                number:int=pilot['carNumber']
+                driver:str=pilot['driver']['name']
+                # print(number+"-"+driver)
                 laps = pilot['laps']
+                pilotLapTimes = []
+                lapTime:LapTime
                 for lap in laps:
-                    print(str(lap['lap'])+":"+str(lap['time']))
-
-
+                    lnumber:int = lap['lap']
+                    ltime: int =lap['time']
+                    lapTime = LapTime(driver, number, lnumber,ltime)
+                    pilotLapTimes.append(lapTime)
+                    # print(str(lapNumber)+":"+str(lapTime))
+                # print(number)
+                lapTimes[number] = pilotLapTimes
+    for pilot in lapTimes.keys():
+        print(pilot)
+        for lt in lapTimes[pilot]:
+            print(lt)
     print("end  Lap Times")
 
 def parseLapChart():
@@ -120,7 +134,7 @@ def parseLapChart():
                 # print(lap+":", end='')
             number = getString(positions[i+(j*len(lap_links))].string)
             lapChart.cars.append(number)
-            print(number, end=',')
+            # print(number, end=',')
             # if (j==20):
             #    print()
         lap_index= lap_index +1
