@@ -11,6 +11,7 @@ from pitStop import PitStop
 from raceresult import RaceResult
 from startinggrid import StartingGrid
 from teamStanding import TeamStanding
+from tyres import Stint
 from utils import *
 from driver import *
 from team import *
@@ -36,6 +37,7 @@ pitStops:dict = dict()
 fastestLaps = []
 lapCharts = []
 lapTimes:dict = dict()
+tyres:dict = dict()
 def main():
     # parseDrivers1()
     # parseDrivers()
@@ -46,8 +48,8 @@ def main():
     # parsePitStop()
     # parseFastestLaps()
     # parseLapChart()
-    parseLapTimes()
-    # parseTyres()
+    # parseLapTimes()
+    parseTyres()
 
 def parseTyres():
 
@@ -65,9 +67,26 @@ def parseTyres():
             trs: list = link.tbody.find_all('tr')
             for tr in trs:
                 stints: list = tr.find_all('td')
-                for stint in stints:
-                    print(stint.string,end=' ')
+                index:int = 0
+                numDriver:int
+                stint: Stint 
+                for stnt in stints:
+                    data:str = stnt.string
+                    if(index==0):
+                        stint = Stint(None, None, None,None)
+                        numDriver = data
+                        stint.driver = numDriver
+                    elif (index>0):
+                        tyre = data.split()
+                        stint.tyre = tyre[0]
+                        stint.laps = tyre[1]
+                        stint.stintNum = index
+                        print(stint)
+                    index = index + 1
+                    # print(stint.string,end=' ')
+                    # print(index)
                 print()
+                
 
 
 def parseLapTimes():
