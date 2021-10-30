@@ -40,7 +40,7 @@ lapTimes:dict = dict()
 tyres:dict = dict()
 def main():
     # parseDrivers1()
-    # parseDrivers()
+    parseDrivers()
     # parseRaceClassification()
     # parseStartingGrid()
     # parseDriverStandings()
@@ -68,24 +68,36 @@ def parseTyres():
             for tr in trs:
                 stints: list = tr.find_all('td')
                 index:int = 0
-                numDriver:int
-                stint: Stint 
+                nomDriver:int
+                stint: Stint
+                stintsArr = []
                 for stnt in stints:
                     data:str = stnt.string
+                    key:int
                     if(index==0):
-                        stint = Stint(None, None, None,None)
-                        numDriver = data
-                        stint.driver = numDriver
+                        nomDriver = data
+                        key=getdriverId(nomDriver,drivers)
+                        # print(key)
                     elif (index>0):
+                        stint:Stint = Stint(None, None, None,None)
+                        stint.driver = nomDriver
                         tyre = data.split()
                         stint.tyre = tyre[0]
                         stint.laps = tyre[1]
                         stint.stintNum = index
-                        print(stint)
+                        stintsArr.append(stint)
+                        # print(stint)
+                        # print(stintsArr)
                     index = index + 1
                     # print(stint.string,end=' ')
                     # print(index)
-                print()
+                tyres[key]=stintsArr
+                # print()
+            for key in tyres.keys():
+                stints = tyres[key]
+                for stint in stints:
+                    print(stint)
+            
                 
 
 
