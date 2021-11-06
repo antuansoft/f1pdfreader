@@ -48,15 +48,15 @@ class Crawlf1web2021:
     def load(self):
         # self.parseDrivers1()
         self.parseDrivers()
-        self.parseRaceClassification()
-        self.parseStartingGrid()
-        self.parseDriverStandings()
-        self.parseTeamsStandings()
-        self.parsePitStop()
-        self.parseFastestLaps()
-        self.parseLapChart()
-        self.parseLapTimes()
-        self.parseTyres()
+        # self.parseRaceClassification()
+        # self.parseStartingGrid()
+        # self.parseDriverStandings()
+        # self.parseTeamsStandings()
+        # self.parsePitStop()
+        # self.parseFastestLaps()
+        # self.parseLapChart()
+        # self.parseLapTimes()
+        # self.parseTyres()
 
     def parseTyres(self):
 
@@ -529,7 +529,10 @@ class Crawlf1web2021:
                 engine = ""
                 rowCount = 0
             rowCount = rowCount + 1
-        print(self.teams)
+        # print(self.teams)
+        for key in self.teams.keys():
+            team:Team = self.teams[key]
+            print(team)
         print("end Drivers and teams")
 
     def parseDrivers1(self):
