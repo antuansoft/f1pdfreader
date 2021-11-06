@@ -1,5 +1,5 @@
 
-# functions with utils
+# Static module utils, functions with utils
 
 from driver import Driver
 
@@ -10,7 +10,7 @@ def getString(value: str) -> str:
     else:
         return value
 
-# get the driver number based on driver name
+# get the driver number based on driver name and the dict of drivers
 def getdriverId(driver: str, drivers:dict)->int:
     for key in drivers.keys():
         name:str=drivers[key].name
