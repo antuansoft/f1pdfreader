@@ -2,8 +2,12 @@
 # Static module utils, functions with utils
 
 from driver import Driver
+from os.path import exists
+import requests
+from os import makedirs
+from posixpath import dirname
 
-
+# read a String excluding null value
 def getString(value: str) -> str:
     if (value == None):
         return "---"
@@ -20,3 +24,26 @@ def getdriverId(driver: str, drivers:dict)->int:
         if surname in name:
             return key
     return None
+
+# read file and return text
+def readFile(filePath:str)->str:
+    f = open(filePath, "r")
+    return f.read()
+
+# Downlad Url and return html string
+def downloadUrl(url:str)->str:
+    print("download:"+url)
+    html_text: str = requests.get(url).text
+    print("downloaded")
+    return html_text
+
+def saveWeb(webHtml:str,pathToFile:str):
+    file_exists = exists(pathToFile)
+    if (not file_exists):
+        makedirs(dirname(pathToFile))
+        f = open(pathToFile,"w")
+        f.write(webHtml)
+        f.close()
+        print(pathToFile + " saved")
+    else:
+        print(pathToFile + " already exits.")

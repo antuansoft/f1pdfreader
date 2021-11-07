@@ -30,10 +30,10 @@ class Crawlf1web2021:
     lapTimes:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_url, race_classification_url, starting_grid_url, driver_standings_url, teams_standings_url,
+    def __init__(self, drivers_html_path, race_classification_url, starting_grid_url, driver_standings_url, teams_standings_url,
                 pit_stops_url,fastest_laps_url,lap_chart_url,lap_times_url,tyres_url):
         
-        self.drivers_url = drivers_url
+        self.drivers_html_path = drivers_html_path
         self.race_classification_url = race_classification_url
         self.starting_grid_url = starting_grid_url
         self.driver_standings_url = driver_standings_url
@@ -488,7 +488,8 @@ class Crawlf1web2021:
 
     def parseDrivers(self):
         print("start Drivers and teams")
-        html_text: str = requests.get(self.drivers_url).text
+        # html_text: str = requests.get(self.drivers_url).text
+        html_text = readFile(self.drivers_html_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -533,6 +534,10 @@ class Crawlf1web2021:
         for key in self.teams.keys():
             team:Team = self.teams[key]
             print(team)
+        print()
+        for key in self.drivers.keys():
+            driver:Driver = self.drivers[key]
+            print(driver)            
         print("end Drivers and teams")
 
     def parseDrivers1(self):
