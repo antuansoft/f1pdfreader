@@ -30,12 +30,12 @@ class Crawlf1web2021:
     lapTimes:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_html_path, race_classification_url, starting_grid_url, driver_standings_url, teams_standings_url,
+    def __init__(self, drivers_html_path, race_classification_path, starting_grid_path, driver_standings_url, teams_standings_url,
                 pit_stops_url,fastest_laps_url,lap_chart_url,lap_times_url,tyres_url):
         
         self.drivers_html_path = drivers_html_path
-        self.race_classification_url = race_classification_url
-        self.starting_grid_url = starting_grid_url
+        self.race_classification_path = race_classification_path
+        self.starting_grid_path = starting_grid_path
         self.driver_standings_url = driver_standings_url
         self.teams_standings_url = teams_standings_url
         self.pit_stops_url = pit_stops_url
@@ -48,8 +48,8 @@ class Crawlf1web2021:
     def load(self):
         # self.parseDrivers1()
         self.parseDrivers()
-        # self.parseRaceClassification()
-        # self.parseStartingGrid()
+        self.parseRaceClassification()
+        self.parseStartingGrid()
         # self.parseDriverStandings()
         # self.parseTeamsStandings()
         # self.parsePitStop()
@@ -350,7 +350,8 @@ class Crawlf1web2021:
 
     def parseStartingGrid(self):
         print("start Starting Grid")
-        html_text: str = requests.get(self.starting_grid_url).text
+        # html_text: str = requests.get(self.starting_grid_url).text
+        html_text = readFile(self.starting_grid_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -419,7 +420,8 @@ class Crawlf1web2021:
         print("End Starting Grid")
     def parseRaceClassification(self):
         print("start Race Classification")
-        html_text: str = requests.get(self.race_classification_url).text
+        # html_text: str = requests.get(self.race_classification_url).text
+        html_text = readFile(self.race_classification_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")

@@ -40,7 +40,7 @@ def downloadUrl(url:str)->str:
 def saveWeb(webHtml:str,pathToFile:str):
     file_exists = exists(pathToFile)
     if (not file_exists):
-        makedirs(dirname(pathToFile))
+        makedirs(dirname(pathToFile),0o777,True)
         f = open(pathToFile,"w")
         f.write(webHtml)
         f.close()
