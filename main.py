@@ -11,10 +11,19 @@ race_classification_bahrein2021_path:str = "2021/race_classification_bahrein2021
 starting_grid_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/9bb465b8-a1d7-4d67-beaf-c6b7a310d65a"
 starting_grid_bahrein2021_path:str = "2021/starting_grid_bahrein2021.html" 
 driver_standings_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/drivers"
-driver_standings_bahrein2021_path:str = "2021/driver_standings_bahrein2021.html" 
-
-
-
+driver_standings_bahrein2021_path:str = "2021/driver_standings_bahrein2021.html"
+team_standings_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams"
+team_standings_bahrein2021_path:str = "2021/team_standings_bahrein2021.html" 
+pitstops_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop"
+pitstops_bahrein2021_path:str = "2021/pitstops_bahrein2021.html"
+fastest_laps_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap"
+fastest_laps_bahrein2021_path:str = "2021/fastest_laps_bahrein2021.html"
+lapchart_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapChart"
+lapchart_bahrein2021_path:str = "2021/lapchart_bahrein2021.html"
+laptimes_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapTime"
+laptimes_bahrein2021_path:str = "2021/laptime_bahrein2021.html"
+tyres_bahrein2021_url:str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
+tyres_bahrein2021_path:str = "2021/tyres_bahrein2021.html"
 def main():
     print("main")
 
@@ -30,17 +39,34 @@ def main():
     driver_standings_html:str=downloadUrl(driver_standings_bahrein2021_url)
     saveWeb(driver_standings_html,driver_standings_bahrein2021_path)
 
+    team_standings_html:str=downloadUrl(team_standings_bahrein2021_url)
+    saveWeb(team_standings_html,team_standings_bahrein2021_path)
+
+    pitstops_html:str=downloadUrl(pitstops_bahrein2021_url)
+    saveWeb(pitstops_html,pitstops_bahrein2021_path)
+
+    fastest_laps_html:str=downloadUrl(fastest_laps_bahrein2021_url)
+    saveWeb(fastest_laps_html,fastest_laps_bahrein2021_path)
+
+    lapchart_html:str=downloadUrl(lapchart_bahrein2021_url)
+    saveWeb(lapchart_html,lapchart_bahrein2021_path)
+
+    laptimes_html:str=downloadUrl(laptimes_bahrein2021_url)
+    saveWeb(laptimes_html,laptimes_bahrein2021_path)
+
+    tyres_html:str=downloadUrl(tyres_bahrein2021_url)
+    saveWeb(tyres_html,tyres_bahrein2021_path)
 
     bahrain2021 = Crawlf1web2021(drivers_bahrein2021_path,
                                  race_classification_bahrein2021_path,
                                  starting_grid_bahrein2021_path,
                                  driver_standings_bahrein2021_path,
-                                 "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/standings/teams",
-                                 "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=PitStop",
-                                 "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=FastestLap",
-                                 "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapChart",
-                                 "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/b98847af-40d6-4464-9727-f638d1170fb0?fact=LapTime",
-                                 "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
+                                 team_standings_bahrein2021_path,
+                                 pitstops_bahrein2021_path,
+                                 fastest_laps_bahrein2021_path,
+                                 lapchart_bahrein2021_path,
+                                 laptimes_bahrein2021_path,
+                                 tyres_bahrein2021_path
                                  )
     bahrain2021.load()
     

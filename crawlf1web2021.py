@@ -30,19 +30,19 @@ class Crawlf1web2021:
     lapTimes:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_html_path, race_classification_path, starting_grid_path, driver_standings_path, teams_standings_url,
-                pit_stops_url,fastest_laps_url,lap_chart_url,lap_times_url,tyres_url):
+    def __init__(self, drivers_html_path, race_classification_path, starting_grid_path, driver_standings_path, teams_standings_path,
+                pit_stops_path,fastest_laps_path,lap_chart_path,lap_times_path,tyres_path):
         
         self.drivers_html_path = drivers_html_path
         self.race_classification_path = race_classification_path
         self.starting_grid_path = starting_grid_path
         self.driver_standings_path = driver_standings_path
-        self.teams_standings_url = teams_standings_url
-        self.pit_stops_url = pit_stops_url
-        self.fastest_laps_url = fastest_laps_url
-        self.lap_chart_url = lap_chart_url
-        self.lap_times_url = lap_times_url
-        self.tyres_url = tyres_url
+        self.teams_standings_path = teams_standings_path
+        self.pit_stops_path = pit_stops_path
+        self.fastest_laps_path = fastest_laps_path
+        self.lap_chart_path = lap_chart_path
+        self.lap_times_path = lap_times_path
+        self.tyres_path = tyres_path
 
     
     def load(self):
@@ -51,17 +51,18 @@ class Crawlf1web2021:
         self.parseRaceClassification()
         self.parseStartingGrid()
         self.parseDriverStandings()
-        # self.parseTeamsStandings()
-        # self.parsePitStop()
-        # self.parseFastestLaps()
-        # self.parseLapChart()
-        # self.parseLapTimes()
-        # self.parseTyres()
+        self.parseTeamsStandings()
+        self.parsePitStop()
+        self.parseFastestLaps()
+        self.parseLapChart()
+        self.parseLapTimes()
+        self.parseTyres()
 
     def parseTyres(self):
 
         print("start  Tyres")
-        html_text: str = requests.get(self.tyres_url).text
+        # html_text: str = requests.get(self.tyres_url).text
+        html_text: str = readFile(self.tyres_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -108,7 +109,8 @@ class Crawlf1web2021:
 
     def parseLapTimes(self):
         print("start  Lap Chart")
-        html_text: str = requests.get(self.lap_times_url).text
+        # html_text: str = requests.get(self.lap_times_url).text
+        html_text: str = readFile(self.lap_times_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -149,7 +151,8 @@ class Crawlf1web2021:
 
     def parseLapChart(self):
         print("start  Lap Chart")
-        html_text: str = requests.get(self.lap_chart_url).text
+        # html_text: str = requests.get(self.lap_chart_url).text
+        html_text: str = readFile(self.lap_chart_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -181,7 +184,8 @@ class Crawlf1web2021:
         print("end  Lap Chart")
     def parseFastestLaps(self):
         print("start  Fastest Laps")
-        html_text: str = requests.get(self.fastest_laps_url).text
+        # html_text: str = requests.get(self.fastest_laps_url).text
+        html_text: str = readFile(self.fastest_laps_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -230,7 +234,8 @@ class Crawlf1web2021:
 
     def parsePitStop(self):
         print("start  Pit Stops")
-        html_text: str = requests.get(self.pit_stops_url).text
+        # html_text: str = requests.get(self.pit_stops_url).text
+        html_text: str = readFile(self.pit_stops_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -285,7 +290,8 @@ class Crawlf1web2021:
 
     def parseTeamsStandings(self):
         print("start Teams Standings")
-        html_text: str = requests.get(self.teams_standings_url).text
+        # html_text: str = requests.get(self.teams_standings_url).text
+        html_text: str = readFile(self.teams_standings_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
