@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any, List, Type
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -21,6 +21,9 @@ class Crawlf1web2021:
     drivers:dict = dict() 
     teams:dict = dict() 
     raceResuts = []
+    q1:list=[]
+    q2:list=[]
+    q3:list=[]
     startingGrids = []
     driverStandings = []
     teamStandings = []
@@ -30,11 +33,14 @@ class Crawlf1web2021:
     lapTimes:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_html_path, race_classification_path, starting_grid_path, driver_standings_path, teams_standings_path,
+    def __init__(self, drivers_html_path, race_classification_path, q1_path, q2_path, q3_path, starting_grid_path, driver_standings_path, teams_standings_path,
                 pit_stops_path,fastest_laps_path,lap_chart_path,lap_times_path,tyres_path):
         
         self.drivers_html_path = drivers_html_path
         self.race_classification_path = race_classification_path
+        self.q1_path = q1_path
+        self.q2_path = q2_path
+        self.q3_path = q3_path
         self.starting_grid_path = starting_grid_path
         self.driver_standings_path = driver_standings_path
         self.teams_standings_path = teams_standings_path
@@ -47,16 +53,88 @@ class Crawlf1web2021:
     
     def load(self):
         # self.parseDrivers1()
-        self.parseDrivers()
-        self.parseRaceClassification()
-        self.parseStartingGrid()
-        self.parseDriverStandings()
-        self.parseTeamsStandings()
-        self.parsePitStop()
-        self.parseFastestLaps()
-        self.parseLapChart()
-        self.parseLapTimes()
-        self.parseTyres()
+        # self.parseDrivers()
+        # self.parseRaceClassification()
+        self.parseQX("Q1",self.q1_path,self.q1)
+        self.parseQX("Q2",self.q2_path,self.q2)
+        self.parseQX("Q3",self.q3_path,self.q3)
+        # self.parseStartingGrid()
+        # self.parseDriverStandings()
+        # self.parseTeamsStandings()
+        # self.parsePitStop()
+        # self.parseFastestLaps()
+        # self.parseLapChart()
+        # self.parseLapTimes()
+        # self.parseTyres()
+
+    def parseQX(self,qx:str,qx_path:str,qx_result:list):
+
+        print("start  "+qx)
+        html_text: str = readFile(qx_path)
+        soup = BeautifulSoup(html_text, 'html.parser')
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('td')
+        print("links encontrados:" + str(len(links)))
+        i:int = 1
+        rowCount: int = 1
+        position:str = ""
+        number:str = ""
+        driver:str = ""
+        nationality:str = ""
+        scuderia:str = ""
+        laps:str = ""
+        time:str = ""
+        gap2leader:str = ""
+        interval2next:str = ""
+        kph:str = ""
+        besttime:str = ""
+        bestlap:str = ""
+        q1: StartingGrid
+        for link in links:
+            if (rowCount == 1):
+                position = getString(link.string)
+            elif (rowCount == 2):
+                number = getString(link.string)
+            elif (rowCount == 3):
+                driver = getString(link.string)
+            elif (rowCount == 4):
+                nationality = getString(link.string)
+            elif (rowCount == 5):
+                scuderia = getString(link.string)
+            elif (rowCount == 6):
+                laps = getString(link.string)
+            elif (rowCount == 7):
+                time = getString(link.string)            
+            elif (rowCount == 8):
+                gap2leader = getString(link.string)
+            elif (rowCount == 9):
+                interval2next = getString(link.string)
+            elif (rowCount == 10):
+                kph = getString(link.string)
+            elif (rowCount == 11):
+                besttime = getString(link.string)
+            elif (rowCount == 12):
+                bestlap = getString(link.string)
+                # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
+                qx = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
+                qx_result.append(qx) 
+                rowCount = 0
+                position = ""
+                number = ""
+                driver = ""
+                nationality = ""
+                scuderia = ""
+                laps = ""
+                time = ""
+                gap2leader = ""
+                interval2next = ""
+                kph = ""
+                besttime = ""
+                bestlap = ""
+            rowCount = rowCount + 1        
+        for grid in qx_result:
+            print(grid)
 
     def parseTyres(self):
 
