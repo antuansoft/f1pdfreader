@@ -53,88 +53,19 @@ class Crawlf1web2021:
     
     def load(self):
         # self.parseDrivers1()
-        # self.parseDrivers()
-        # self.parseRaceClassification()
-        self.parseQX("Q1",self.q1_path,self.q1)
-        self.parseQX("Q2",self.q2_path,self.q2)
-        self.parseQX("Q3",self.q3_path,self.q3)
-        # self.parseStartingGrid()
-        # self.parseDriverStandings()
-        # self.parseTeamsStandings()
-        # self.parsePitStop()
-        # self.parseFastestLaps()
-        # self.parseLapChart()
-        # self.parseLapTimes()
-        # self.parseTyres()
-
-    def parseQX(self,qx:str,qx_path:str,qx_result:list):
-
-        print("start  "+qx)
-        html_text: str = readFile(qx_path)
-        soup = BeautifulSoup(html_text, 'html.parser')
-        print("parseado:"+ soup.title.string)
-        print("---------------------")
-        links:list = soup.find_all('td')
-        print("links encontrados:" + str(len(links)))
-        i:int = 1
-        rowCount: int = 1
-        position:str = ""
-        number:str = ""
-        driver:str = ""
-        nationality:str = ""
-        scuderia:str = ""
-        laps:str = ""
-        time:str = ""
-        gap2leader:str = ""
-        interval2next:str = ""
-        kph:str = ""
-        besttime:str = ""
-        bestlap:str = ""
-        q1: StartingGrid
-        for link in links:
-            if (rowCount == 1):
-                position = getString(link.string)
-            elif (rowCount == 2):
-                number = getString(link.string)
-            elif (rowCount == 3):
-                driver = getString(link.string)
-            elif (rowCount == 4):
-                nationality = getString(link.string)
-            elif (rowCount == 5):
-                scuderia = getString(link.string)
-            elif (rowCount == 6):
-                laps = getString(link.string)
-            elif (rowCount == 7):
-                time = getString(link.string)            
-            elif (rowCount == 8):
-                gap2leader = getString(link.string)
-            elif (rowCount == 9):
-                interval2next = getString(link.string)
-            elif (rowCount == 10):
-                kph = getString(link.string)
-            elif (rowCount == 11):
-                besttime = getString(link.string)
-            elif (rowCount == 12):
-                bestlap = getString(link.string)
-                # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
-                qx = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
-                qx_result.append(qx) 
-                rowCount = 0
-                position = ""
-                number = ""
-                driver = ""
-                nationality = ""
-                scuderia = ""
-                laps = ""
-                time = ""
-                gap2leader = ""
-                interval2next = ""
-                kph = ""
-                besttime = ""
-                bestlap = ""
-            rowCount = rowCount + 1        
-        for grid in qx_result:
-            print(grid)
+        self.parseDrivers()
+        self.parseRaceClassification()
+        self.parseGrid("Q1",self.q1_path,self.q1)
+        self.parseGrid("Q2",self.q2_path,self.q2)
+        self.parseGrid("Q3",self.q3_path,self.q3)
+        self.parseGrid("Starting Grid",self.starting_grid_path,self.startingGrids)
+        self.parseDriverStandings()
+        self.parseTeamsStandings()
+        self.parsePitStop()
+        self.parseFastestLaps()
+        self.parseLapChart()
+        self.parseLapTimes()
+        self.parseTyres()
 
     def parseTyres(self):
 
@@ -260,6 +191,7 @@ class Crawlf1web2021:
         for lc in self.lapCharts:
             print(lc)
         print("end  Lap Chart")
+
     def parseFastestLaps(self):
         print("start  Fastest Laps")
         # html_text: str = requests.get(self.fastest_laps_url).text
@@ -433,10 +365,10 @@ class Crawlf1web2021:
             print(standing)
         print("end Driver Standings")
 
-    def parseStartingGrid(self):
-        print("start Starting Grid")
-        # html_text: str = requests.get(self.starting_grid_url).text
-        html_text = readFile(self.starting_grid_path)
+    def parseGrid(self,qx:str,qx_path:str,qx_result:list):
+
+        print("start  "+qx)
+        html_text: str = readFile(qx_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
@@ -456,7 +388,7 @@ class Crawlf1web2021:
         kph:str = ""
         besttime:str = ""
         bestlap:str = ""
-        startingGrid: StartingGrid
+        q1: StartingGrid
         for link in links:
             if (rowCount == 1):
                 position = getString(link.string)
@@ -483,8 +415,8 @@ class Crawlf1web2021:
             elif (rowCount == 12):
                 bestlap = getString(link.string)
                 # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
-                startingGrid = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
-                self.startingGrids.append(startingGrid) 
+                qx = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
+                qx_result.append(qx) 
                 rowCount = 0
                 position = ""
                 number = ""
@@ -499,8 +431,9 @@ class Crawlf1web2021:
                 besttime = ""
                 bestlap = ""
             rowCount = rowCount + 1        
-            for grid in self.startingGrids:
-                print(grid)
+        for grid in qx_result:
+            print(grid)
+
 
         print("End Starting Grid")
     def parseRaceClassification(self):
