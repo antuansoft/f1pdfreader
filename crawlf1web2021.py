@@ -21,6 +21,7 @@ class Crawlf1web2021:
     drivers:dict = dict() 
     teams:dict = dict() 
     raceResuts = []
+    practice1:list = []
     q1:list=[]
     q2:list=[]
     q3:list=[]
@@ -33,11 +34,12 @@ class Crawlf1web2021:
     lapTimes:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_html_path, race_classification_path, q1_path, q2_path, q3_path, starting_grid_path, driver_standings_path, teams_standings_path,
+    def __init__(self, drivers_html_path, race_classification_path, practice1_path, q1_path, q2_path, q3_path, starting_grid_path, driver_standings_path, teams_standings_path,
                 pit_stops_path,fastest_laps_path,lap_chart_path,lap_times_path,tyres_path):
         
         self.drivers_html_path = drivers_html_path
         self.race_classification_path = race_classification_path
+        self.practice1_path = practice1_path
         self.q1_path = q1_path
         self.q2_path = q2_path
         self.q3_path = q3_path
@@ -53,19 +55,20 @@ class Crawlf1web2021:
     
     def load(self):
         # self.parseDrivers1()
-        self.parseDrivers()
-        self.parseRaceClassification()
-        self.parseGrid("Q1",self.q1_path,self.q1)
-        self.parseGrid("Q2",self.q2_path,self.q2)
-        self.parseGrid("Q3",self.q3_path,self.q3)
-        self.parseGrid("Starting Grid",self.starting_grid_path,self.startingGrids)
-        self.parseDriverStandings()
-        self.parseTeamsStandings()
-        self.parsePitStop()
-        self.parseFastestLaps()
-        self.parseLapChart()
-        self.parseLapTimes()
-        self.parseTyres()
+        # self.parseDrivers()
+        # self.parseRaceClassification()
+        self.parseGrid("Practice 1",self.practice1_path,self.practice1)
+        # self.parseGrid("Q1",self.q1_path,self.q1)
+        # self.parseGrid("Q2",self.q2_path,self.q2)
+        # self.parseGrid("Q3",self.q3_path,self.q3)
+        # self.parseGrid("Starting Grid",self.starting_grid_path,self.startingGrids)
+        # self.parseDriverStandings()
+        # self.parseTeamsStandings()
+        # self.parsePitStop()
+        # self.parseFastestLaps()
+        # self.parseLapChart()
+        # self.parseLapTimes()
+        # self.parseTyres()
 
     def parseTyres(self):
 

@@ -8,6 +8,12 @@ drivers_bahrein2021_url = "https://fiaresultsandstatistics.motorsportstats.com/r
 drivers_bahrein2021_path:str = "2021/drivers_teams_bahrein2021.html"
 race_classification_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification"
 race_classification_bahrein2021_path:str = "2021/race_classification_bahrein2021.html"
+practice1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/0c81a6c4-b620-4690-9f0d-8ccf50393875"
+practice1_path:str = "2021/practice1_bahrein2021.html"
+practice2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/db11f035-2f17-4331-bd0f-ece4f37c7627"
+practice2_path:str = "2021/practice2_bahrein2021.html"
+practice3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/e15fe67e-e499-4a23-8eb5-6ee38f5759e0"
+practice3_path:str = "2021/practice3_bahrein2021.html"
 q1_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/be8ce756-5e39-41f2-a7f0-e6eb1984dd59"
 q1_bahrein2021_path:str = "2021/q1_bahrein2021.html"
 q2_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/classification/920513e4-3cec-48fd-8802-6d0c7f94cd7b"
@@ -31,7 +37,7 @@ laptimes_bahrein2021_path:str = "2021/laptime_bahrein2021.html"
 tyres_bahrein2021_url:str = "https://www.racefans.net/2021/03/29/2021-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 tyres_bahrein2021_path:str = "2021/tyres_bahrein2021.html"
 
-class Bahrain2001:
+class Bahrain2021:
     print("Bahrain2001")
 
     drivers_html:str=downloadUrl(drivers_bahrein2021_url)
@@ -39,6 +45,9 @@ class Bahrain2001:
     
     race_classification_html:str=downloadUrl(race_classification_bahrein2021_url)
     saveWeb(race_classification_html,race_classification_bahrein2021_path)
+
+    practice1_html:str=downloadUrl(practice1_url)
+    saveWeb(practice1_html,practice1_path)
 
     q1_html:str=downloadUrl(q1_bahrein2021_url)
     saveWeb(q1_html,q1_bahrein2021_path)
@@ -75,6 +84,7 @@ class Bahrain2001:
 
     bahrain2021 = Crawlf1web2021(drivers_bahrein2021_path,
                                  race_classification_bahrein2021_path,
+                                 practice1_path,
                                  q1_bahrein2021_path,
                                  q2_bahrein2021_path,
                                  q3_bahrein2021_path,
