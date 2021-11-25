@@ -49,6 +49,12 @@ class Bahrain2021:
     practice1_html:str=downloadUrl(practice1_url)
     saveWeb(practice1_html,practice1_path)
 
+    practice2_html:str=downloadUrl(practice2_url)
+    saveWeb(practice2_html,practice2_path)
+
+    practice3_html:str=downloadUrl(practice3_url)
+    saveWeb(practice3_html,practice3_path)    
+
     q1_html:str=downloadUrl(q1_bahrein2021_url)
     saveWeb(q1_html,q1_bahrein2021_path)
 
@@ -85,6 +91,8 @@ class Bahrain2021:
     bahrain2021 = Crawlf1web2021(drivers_bahrein2021_path,
                                  race_classification_bahrein2021_path,
                                  practice1_path,
+                                 practice2_path,
+                                 practice3_path,
                                  q1_bahrein2021_path,
                                  q2_bahrein2021_path,
                                  q3_bahrein2021_path,
