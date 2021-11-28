@@ -40,53 +40,53 @@ tyres_bahrein2021_path:str = "2021/tyres_bahrein2021.html"
 class Bahrain2021:
     print("Bahrain2001")
 
-    drivers_html:str=downloadUrl(drivers_bahrein2021_url)
-    saveWeb(drivers_html,drivers_bahrein2021_path)
+    # drivers_html:str=downloadUrl(drivers_bahrein2021_url)
+    # saveWeb(drivers_html,drivers_bahrein2021_path)
     
-    race_classification_html:str=downloadUrl(race_classification_bahrein2021_url)
-    saveWeb(race_classification_html,race_classification_bahrein2021_path)
+    # race_classification_html:str=downloadUrl(race_classification_bahrein2021_url)
+    # saveWeb(race_classification_html,race_classification_bahrein2021_path)
 
-    practice1_html:str=downloadUrl(practice1_url)
-    saveWeb(practice1_html,practice1_path)
+    # practice1_html:str=downloadUrl(practice1_url)
+    # saveWeb(practice1_html,practice1_path)
 
-    practice2_html:str=downloadUrl(practice2_url)
-    saveWeb(practice2_html,practice2_path)
+    # practice2_html:str=downloadUrl(practice2_url)
+    # saveWeb(practice2_html,practice2_path)
 
-    practice3_html:str=downloadUrl(practice3_url)
-    saveWeb(practice3_html,practice3_path)    
+    # practice3_html:str=downloadUrl(practice3_url)
+    # saveWeb(practice3_html,practice3_path)    
 
-    q1_html:str=downloadUrl(q1_bahrein2021_url)
-    saveWeb(q1_html,q1_bahrein2021_path)
+    # q1_html:str=downloadUrl(q1_bahrein2021_url)
+    # saveWeb(q1_html,q1_bahrein2021_path)
 
-    q2_html:str=downloadUrl(q2_bahrein2021_url)
-    saveWeb(q2_html,q2_bahrein2021_path)
+    # q2_html:str=downloadUrl(q2_bahrein2021_url)
+    # saveWeb(q2_html,q2_bahrein2021_path)
     
-    q3_html:str=downloadUrl(q3_bahrein2021_url)
-    saveWeb(q3_html,q3_bahrein2021_path)
+    # q3_html:str=downloadUrl(q3_bahrein2021_url)
+    # saveWeb(q3_html,q3_bahrein2021_path)
 
-    starting_grid_html:str=downloadUrl(starting_grid_bahrein2021_url)
-    saveWeb(starting_grid_html,starting_grid_bahrein2021_path)
+    # starting_grid_html:str=downloadUrl(starting_grid_bahrein2021_url)
+    # saveWeb(starting_grid_html,starting_grid_bahrein2021_path)
 
-    driver_standings_html:str=downloadUrl(driver_standings_bahrein2021_url)
-    saveWeb(driver_standings_html,driver_standings_bahrein2021_path)
+    # driver_standings_html:str=downloadUrl(driver_standings_bahrein2021_url)
+    # saveWeb(driver_standings_html,driver_standings_bahrein2021_path)
 
-    team_standings_html:str=downloadUrl(team_standings_bahrein2021_url)
-    saveWeb(team_standings_html,team_standings_bahrein2021_path)
+    # team_standings_html:str=downloadUrl(team_standings_bahrein2021_url)
+    # saveWeb(team_standings_html,team_standings_bahrein2021_path)
 
-    pitstops_html:str=downloadUrl(pitstops_bahrein2021_url)
-    saveWeb(pitstops_html,pitstops_bahrein2021_path)
+    # pitstops_html:str=downloadUrl(pitstops_bahrein2021_url)
+    # saveWeb(pitstops_html,pitstops_bahrein2021_path)
 
-    fastest_laps_html:str=downloadUrl(fastest_laps_bahrein2021_url)
-    saveWeb(fastest_laps_html,fastest_laps_bahrein2021_path)
+    # fastest_laps_html:str=downloadUrl(fastest_laps_bahrein2021_url)
+    # saveWeb(fastest_laps_html,fastest_laps_bahrein2021_path)
 
-    lapchart_html:str=downloadUrl(lapchart_bahrein2021_url)
-    saveWeb(lapchart_html,lapchart_bahrein2021_path)
+    # lapchart_html:str=downloadUrl(lapchart_bahrein2021_url)
+    # saveWeb(lapchart_html,lapchart_bahrein2021_path)
 
-    laptimes_html:str=downloadUrl(laptimes_bahrein2021_url)
-    saveWeb(laptimes_html,laptimes_bahrein2021_path)
+    # laptimes_html:str=downloadUrl(laptimes_bahrein2021_url)
+    # saveWeb(laptimes_html,laptimes_bahrein2021_path)
 
-    tyres_html:str=downloadUrl(tyres_bahrein2021_url)
-    saveWeb(tyres_html,tyres_bahrein2021_path)
+    # tyres_html:str=downloadUrl(tyres_bahrein2021_url)
+    # saveWeb(tyres_html,tyres_bahrein2021_path)
 
     bahrain2021 = Crawlf1web2021(drivers_bahrein2021_path,
                                  race_classification_bahrein2021_path,

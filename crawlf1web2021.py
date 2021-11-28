@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from bs4.element import Script
 from driverStanding import DriverStanding
 from fastestlap import FastestLap
+from gpInfo import GpInfo
 from lapchart import LapChart
 from laptime import LapTime
 from pitStop import PitStop
@@ -58,12 +59,12 @@ class Crawlf1web2021:
 
     
     def load(self):
-        # self.parseDrivers1()
+        self.parseInfo()
         # self.parseDrivers()
         # self.parseRaceClassification()
         # self.parseGrid("Practice 1",self.practice1_path,self.practice1)
         # self.parseGrid("Practice 2",self.practice2_path,self.practice2)
-        self.parseGrid("Practice 3",self.practice2_path,self.practice3)
+        # self.parseGrid("Practice 3",self.practice2_path,self.practice3)
         # self.parseGrid("Q1",self.q1_path,self.q1)
         # self.parseGrid("Q2",self.q2_path,self.q2)
         # self.parseGrid("Q3",self.q3_path,self.q3)
@@ -569,38 +570,56 @@ class Crawlf1web2021:
             print(driver)            
         print("end Drivers and teams")
 
-    def parseDrivers1(self):
+    def parseInfo(self):
         print("start")
-        html_text: str = requests.get(self.drivers_url).text
+        # html_text: str = requests.get(self.drivers_url).text
+        html_text = readFile(self.drivers_html_path)
         soup = BeautifulSoup(html_text, 'html.parser')
         print("parseado:"+ soup.title.string)
         print("---------------------")
-        links:list = soup.find_all('a')
+        links:list = soup.find_all('h1')
         print("links encontrados:" + str(len(links)))
         i:int = 1
         rowCount: int = 1
-        name:str = ""
-        country:str = ""
-        scuderia:str = ""
-        driver:Driver    
-        for link in links:        
+        gp:str = ""
+        date:str = ""
+        round:str = ""
+        total:str = "" 
+        circuit:str= ""
+        gpInfo: GpInfo = None
+        for link in links:
             if (type(link.get('class')) is not type(None)):
-                if (link.get('class')[0] == '_1TRrV'):
-                    if (rowCount == 1):
-                        name = link.string
-                    elif (rowCount == 2):
-                        country = link.string
-                    elif (rowCount == 3):
-                        scuderia = link.string
-                        print (name + ":" + country + ":" + scuderia)
-                        driver = Driver(name,country,None,scuderia,None,None)
-                        #print(driver)
-                        self.drivers[driver.name]=driver
-                        rowCount = 0
-                    rowCount = rowCount + 1
+                if (link.get('class')[0] == 'qQR9k'):
+                    # if (rowCount == 1):
+                    gp = link.text
+                    print (gp)
+
+                    #     rowCount = 0
+                    # rowCount = rowCount + 1
             #print(i)
             #print(rowCount)
-            i = i + 1
+            # i = i + 1
+        linksDate:list = soup.find_all('div',class_='_3G-GS')
+        print("links encontrados:" + str(len(links)))
+        rowCount = 1
+        for link in linksDate:
+            if (type(link.get('class')) is not type(None)):
+                if (link.get('class')[0] == '_3G-GS'):
+                    if (rowCount == 1):
+                        date = link.text
+                        print(date)
+                    if (rowCount == 2):
+                        round = link.text
+                        print(round)
+                    if (rowCount == 3):
+                        total = link.text
+                        print(total)
+                    if (rowCount == 4):
+                        circuit = link.text
+                        print(circuit)
+                    rowCount = rowCount + 1
+        gpInfo = GpInfo(gp,circuit,date,round,total)
+        print(gpInfo)
         print("end") 
         print("-----------------")
-        #print(drivers)  
+        
