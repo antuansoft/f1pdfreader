@@ -24,7 +24,7 @@ class Crawlf1web2021:
     raceResuts = []
     practice1:list = []
     practice2:list = []
-    practice3:list = []
+    practice3:dict = dict()
     q1:list=[]
     q2:list=[]
     q3:list=[]
@@ -35,9 +35,11 @@ class Crawlf1web2021:
     fastestLaps = []
     lapCharts = []
     lapTimes:dict = dict()
+    lapTimesq3:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, drivers_html_path, race_classification_path, practice1_path, practice2_path, practice3_path, q1_path, q2_path, q3_path, starting_grid_path, driver_standings_path, teams_standings_path,
+    def __init__(self, drivers_html_path, race_classification_path, practice1_path, practice2_path, 
+                practice3_path, q1_path, q2_path, q3_path, q3_laptimes_path,starting_grid_path, driver_standings_path, teams_standings_path,
                 pit_stops_path,fastest_laps_path,lap_chart_path,lap_times_path,tyres_path):
         
         self.drivers_html_path = drivers_html_path
@@ -48,6 +50,7 @@ class Crawlf1web2021:
         self.q1_path = q1_path
         self.q2_path = q2_path
         self.q3_path = q3_path
+        self.q3_laptimes_path = q3_laptimes_path
         self.starting_grid_path = starting_grid_path
         self.driver_standings_path = driver_standings_path
         self.teams_standings_path = teams_standings_path
@@ -59,7 +62,7 @@ class Crawlf1web2021:
 
     
     def load(self):
-        self.parseInfo()
+        # self.parseInfo()
         # self.parseDrivers()
         # self.parseRaceClassification()
         # self.parseGrid("Practice 1",self.practice1_path,self.practice1)
@@ -68,13 +71,15 @@ class Crawlf1web2021:
         # self.parseGrid("Q1",self.q1_path,self.q1)
         # self.parseGrid("Q2",self.q2_path,self.q2)
         # self.parseGrid("Q3",self.q3_path,self.q3)
+        self.parseLapTimes("Q3",self.q3_laptimes_path,self.lapTimesq3)
+
         # self.parseGrid("Starting Grid",self.starting_grid_path,self.startingGrids)
         # self.parseDriverStandings()
         # self.parseTeamsStandings()
         # self.parsePitStop()
         # self.parseFastestLaps()
         # self.parseLapChart()
-        # self.parseLapTimes()
+        # self.parseLapTimes("Race",self.lap_times_path,self.lapTimes)
         # self.parseTyres()
 
     def parseTyres(self):
@@ -126,7 +131,7 @@ class Crawlf1web2021:
                         print(stint)
 
 
-    def parseLapTimes(self):
+    def parseLapTimesOrig(self):
         print("start  Lap Chart")
         # html_text: str = requests.get(self.lap_times_url).text
         html_text: str = readFile(self.lap_times_path)
@@ -375,6 +380,49 @@ class Crawlf1web2021:
             print(standing)
         print("end Driver Standings")
 
+
+    def parseLapTimes(self,ltx:str,ltx_path:str,ltx_result:dict):
+        print("start  Lap Chart "+ ltx)
+        # html_text: str = requests.get(self.lap_times_url).text
+        html_text: str = readFile(ltx_path)
+        soup = BeautifulSoup(html_text, 'html.parser')
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        lap_links:list = soup.find_all('script')
+        print("links encontrados:" + str(len(lap_links)))
+        value_to_find: str = "window.App="
+        data: str
+        json_data: Any
+        pilots: list
+        for link in lap_links:
+            valueStr: str = str(link.string)
+            if (valueStr.find(value_to_find)==0):
+                data = link.string
+                data = data[len(value_to_find):]
+                json_data = json.loads(data)
+                pilots = json_data["state"]['session']['stats']['data']
+                laps: list
+                for pilot in pilots:
+                    number:int=pilot['carNumber']
+                    driver:str=pilot['driver']['name']
+                    # print(number+"-"+driver)
+                    laps = pilot['laps']
+                    pilotLapTimes = []
+                    lapTime:LapTime
+                    for lap in laps:
+                        lnumber:int = lap['lap']
+                        ltime: int =lap['time']
+                        lapTime = LapTime(driver, number, lnumber,ltime)
+                        pilotLapTimes.append(lapTime)
+                        # print(str(lnumber)+":"+str(lapTime))
+                    # print(number)
+                    ltx_result[number] = pilotLapTimes
+        for pilot in ltx_result.keys():
+            print(pilot)
+            for lt in ltx_result[pilot]:
+                print(lt)
+        print("end  Lap Times "+ ltx)
+
     def parseGrid(self,qx:str,qx_path:str,qx_result:list):
 
         print("start  "+qx)
@@ -590,15 +638,8 @@ class Crawlf1web2021:
         for link in links:
             if (type(link.get('class')) is not type(None)):
                 if (link.get('class')[0] == 'qQR9k'):
-                    # if (rowCount == 1):
                     gp = link.text
-                    print (gp)
 
-                    #     rowCount = 0
-                    # rowCount = rowCount + 1
-            #print(i)
-            #print(rowCount)
-            # i = i + 1
         linksDate:list = soup.find_all('div',class_='_3G-GS')
         print("links encontrados:" + str(len(links)))
         rowCount = 1
@@ -607,16 +648,12 @@ class Crawlf1web2021:
                 if (link.get('class')[0] == '_3G-GS'):
                     if (rowCount == 1):
                         date = link.text
-                        print(date)
                     if (rowCount == 2):
                         round = link.text
-                        print(round)
                     if (rowCount == 3):
                         total = link.text
-                        print(total)
                     if (rowCount == 4):
                         circuit = link.text
-                        print(circuit)
                     rowCount = rowCount + 1
         gpInfo = GpInfo(gp,circuit,date,round,total)
         print(gpInfo)

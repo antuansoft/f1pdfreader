@@ -12,6 +12,6 @@ class GpInfo:
         
 
     def __str__(self):
-        return (self.gp + ":" + str(self.date) + ":" + str(self.circuit) + ":" + self.round  +
+        return (self.gp + ":" + self.date + ":" + self.circuit + ":" + self.round  +
                 " of " + str(self.totalCircuits)
                 )
