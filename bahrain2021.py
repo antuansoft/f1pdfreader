@@ -22,6 +22,8 @@ q3_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/re
 q3_bahrein2021_path:str = "2021/q3_bahrein2021.html"
 
 
+q1_laptimes_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/be8ce756-5e39-41f2-a7f0-e6eb1984dd59?fact=LapTime"
+q1_laptimes_bahrein2021_path:str = "2021/q1_laptimes_bahrein2021.html"
 q2_laptimes_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/920513e4-3cec-48fd-8802-6d0c7f94cd7b?fact=LapTime"
 q2_laptimes_bahrein2021_path:str = "2021/q2_laptimes_bahrein2021.html"
 q3_laptimes_bahrein2021_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-formula-1-gulf-air-bahrain-grand-prix/session-facts/8d03296f-d6e0-4f1b-b89a-385d30e04a28?fact=LapTime"
@@ -62,6 +64,7 @@ class Bahrain2021:
                                         q1_bahrein2021_path,
                                         q2_bahrein2021_path,
                                         q3_bahrein2021_path,
+                                        q1_laptimes_bahrein2021_path,
                                         q2_laptimes_bahrein2021_path,
                                         q3_laptimes_bahrein2021_path,
                                         starting_grid_bahrein2021_path,
@@ -100,6 +103,9 @@ class Bahrain2021:
 
         q3_html:str=downloadUrl(q3_bahrein2021_url)
         saveWeb(q3_html,q3_bahrein2021_path)
+
+        q1_laptimes_html:str=downloadUrl(q1_laptimes_bahrein2021_url)
+        saveWeb(q1_laptimes_html,q1_laptimes_bahrein2021_path)
 
         q2_laptimes_html:str=downloadUrl(q2_laptimes_bahrein2021_url)
         saveWeb(q2_laptimes_html,q2_laptimes_bahrein2021_path)
