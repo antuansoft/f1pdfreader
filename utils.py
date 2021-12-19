@@ -32,18 +32,24 @@ def readFile(filePath:str)->str:
 
 # Downlad Url and return html string
 def downloadUrl(url:str)->str:
-    print("download:"+url)
-    html_text: str = requests.get(url).text
-    print("downloaded")
-    return html_text
+    if (url != ""):
+        print("download:"+url)
+        html_text: str = requests.get(url).text
+        print("downloaded")
+        return html_text
+    else:
+        print("No existe")
+        return ""
 
 def saveWeb(webHtml:str,pathToFile:str):
-    file_exists = exists(pathToFile)
-    if (not file_exists):
-        makedirs(dirname(pathToFile),0o777,True)
-        f = open(pathToFile,"w")
-        f.write(webHtml)
-        f.close()
-        print(pathToFile + " saved")
-    else:
-        print(pathToFile + " already exits.")
+    
+    if (webHtml!=""):
+        file_exists = exists(pathToFile)
+        if (not file_exists):
+            makedirs(dirname(pathToFile),0o777,True)
+            f = open(pathToFile,"w")
+            f.write(webHtml)
+            f.close()
+            print(pathToFile + " saved")
+        else:
+            print(pathToFile + " already exits.")

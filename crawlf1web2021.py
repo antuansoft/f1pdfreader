@@ -387,7 +387,7 @@ class Crawlf1web2021:
 
 
     def parseLapTimes(self,ltx:str,ltx_path:str,ltx_result:dict):
-        print("start  Lap Chart "+ ltx)
+        print("start  Lap Times "+ ltx)
         # html_text: str = requests.get(self.lap_times_url).text
         html_text: str = readFile(ltx_path)
         soup = BeautifulSoup(html_text, 'html.parser')
@@ -478,8 +478,8 @@ class Crawlf1web2021:
             elif (rowCount == 12):
                 bestlap = getString(link.string)
                 # print (position +":" +number + ":" + driver + ":" + nationality + ":" +  scuderia + ":" + laps + ":" + time + ":" + gap2leader + ":" + interval2next + ":" + kph + ":" + besttime + ":" + bestlap)
-                qx = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
-                qx_result.append(qx) 
+                sgrid = StartingGrid(position, number, driver, nationality, scuderia, laps, time, gap2leader, interval2next, kph, besttime, bestlap)
+                qx_result.append(sgrid) 
                 rowCount = 0
                 position = ""
                 number = ""
@@ -496,9 +496,8 @@ class Crawlf1web2021:
             rowCount = rowCount + 1        
         for grid in qx_result:
             print(grid)
+        print("end "+qx)
 
-
-        print("End Starting Grid")
     def parseRaceClassification(self):
         print("start Race Classification")
         # html_text: str = requests.get(self.race_classification_url).text
