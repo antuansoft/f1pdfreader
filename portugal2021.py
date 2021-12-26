@@ -4,47 +4,47 @@
 from crawlf1web2021 import Crawlf1web2021
 from utils import *
 
-gppath:str= "_emiglia2021"
-drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna"
+gppath:str= "_portugal2021"
+drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix"
 drivers_path:str = "2021/drivers_teams"+gppath+".html"
-race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/6da3b886-b062-45ac-b972-1b138e6d998a"
+race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification"
 race_classification_path:str = "2021/race_classification"+gppath+".html"
-practice1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/96882bec-2c35-4b96-90b1-6f77163bae61"
+practice1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/e2933e4a-afeb-429a-8237-17a8ced6326a"
 practice1_path:str = "2021/practice1_"+gppath+".html"
-practice2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/30f0ab1c-5e41-4585-a739-d3b3c5e3c8e5"
+practice2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/65c1fb1f-966d-4209-a242-439b4c24b4b2"
 practice2_path:str = "2021/practice2_"+gppath+".html"
-practice3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/05741a3e-e9c2-4705-b370-06bf27663272"
+practice3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/b4675f66-d4b8-4c63-8ad2-a9efdabf6599"
 practice3_path:str = "2021/practice3_"+gppath+".html"
-q1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/ce638bd7-bd0c-4c99-90c3-55d8ae7bcc6a"
+q1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/c54392ea-d198-4a57-a3f6-189f5024a5cb"
 q1_path:str = "2021/q1_"+gppath+".html"
-q2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/3dd8638a-5cbf-4bcc-b8b6-2e667a52ba88"
+q2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/e3a085d2-3e4b-47b4-bb30-669f881170e8"
 q2_path:str = "2021/q2_"+gppath+".html"
-q3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/1ff6ced2-da24-4edf-9a7a-d1b4c1474f75"
+q3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/723231ad-bfcb-4b91-a5fa-ee887906be2e"
 q3_path:str = "2021/q3_"+gppath+".html"
-q1_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/ce638bd7-bd0c-4c99-90c3-55d8ae7bcc6a?fact=LapTime"
+q1_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/c54392ea-d198-4a57-a3f6-189f5024a5cb?fact=LapTime"
 q1_laptimes_path:str = "2021/q1_laptimes_"+gppath+".html"
-q2_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/3dd8638a-5cbf-4bcc-b8b6-2e667a52ba88?fact=LapTime"
+q2_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/e3a085d2-3e4b-47b4-bb30-669f881170e8?fact=LapTime"
 q2_laptimes_path:str = "2021/q2_laptimes_"+gppath+".html"
-q3_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/1ff6ced2-da24-4edf-9a7a-d1b4c1474f75?fact=LapTime"
+q3_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/723231ad-bfcb-4b91-a5fa-ee887906be2e?fact=LapTime"
 q3_laptimes_path:str = "2021/q3_laptimes_"+gppath+".html"
-starting_grid_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/classification/24126f6d-fef2-424e-beb2-183ca0bba4d8"
+starting_grid_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/9062af11-7507-4e20-be50-88dd9ea43c2f"
 starting_grid_path:str = "2021/starting_grid_"+gppath+".html" 
-driver_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/standings/drivers"
+driver_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/standings"
 driver_standings_path:str = "2021/driver_standings_"+gppath+".html"
-team_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/standings/teams"
+team_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/standings/teams"
 team_standings_path:str = "2021/team_standings_"+gppath+".html" 
-pitstops_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/6da3b886-b062-45ac-b972-1b138e6d998a?fact=PitStop"
+pitstops_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=PitStop"
 pitstops_path:str = "2021/pitstops_"+gppath+".html"
-fastest_laps_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/6da3b886-b062-45ac-b972-1b138e6d998a?fact=FastestLap"
+fastest_laps_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=FastestLap"
 fastest_laps_path:str = "2021/fastest_laps_"+gppath+".html"
-lapchart_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/6da3b886-b062-45ac-b972-1b138e6d998a?fact=LapChart"
+lapchart_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=LapChart"
 lapchart_path:str = "2021/lapchart_"+gppath+".html"
-laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-pirelli-gran-premio-del-made-in-italy-e-dell-emilia-romagna/session-facts/6da3b886-b062-45ac-b972-1b138e6d998a?fact=LapTime"
+laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=LapTime"
 laptimes_path:str = "2021/laptime_"+gppath+".html"
-tyres_url:str = "https://www.racefans.net/2021/04/18/2021-emilia-romagna-grand-prix-interactive-data-lap-charts-times-and-tyres/"
+tyres_url:str = "https://www.racefans.net/2021/05/02/2021-portuguese-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 tyres_path:str = "2021/tyres_"+gppath+".html"
 
-class Emiglia2021:
+class Portugal2021:
 
     def __init__(self) -> None:
         
@@ -52,7 +52,7 @@ class Emiglia2021:
 
         self.loadData()
     
-        emiglia2021 = Crawlf1web2021(drivers_path,
+        bahrain2021 = Crawlf1web2021(drivers_path,
                                         race_classification_path,
                                         practice1_path,
                                         practice2_path,
@@ -72,7 +72,7 @@ class Emiglia2021:
                                         laptimes_path,
                                         tyres_path
                                         )
-        emiglia2021.load()
+        bahrain2021.load()
 
     def loadData(self):
 

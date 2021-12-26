@@ -4,9 +4,9 @@
 from crawlf1web2021 import Crawlf1web2021
 from utils import *
 
-gppath:str= "xxxxx"
+gppath:str= "_xxxxx"
 drivers_url = ""
-drivers_path:str = "2021/drivers_teams_emiglia2021.html"
+drivers_path:str = "2021/drivers_teams"+gppath+".html"
 race_classification_url:str = ""
 race_classification_path:str = "2021/race_classification"+gppath+".html"
 practice1_url:str = ""
