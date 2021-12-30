@@ -4,55 +4,55 @@
 from crawlf1web2021 import Crawlf1web2021
 from utils import *
 
-gppath:str= "_portugal2021"
-drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix"
+gppath:str= "_spain2021"
+drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana"
 drivers_path:str = "2021/drivers_teams"+gppath+".html"
-race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification"
+race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification"
 race_classification_path:str = "2021/race_classification"+gppath+".html"
-practice1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/e2933e4a-afeb-429a-8237-17a8ced6326a"
+practice1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/6e5b4eef-6351-411d-a3de-26acc025f528"
 practice1_path:str = "2021/practice1_"+gppath+".html"
-practice2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/65c1fb1f-966d-4209-a242-439b4c24b4b2"
+practice2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/15dc58ff-51a5-4860-b2e3-dc2718351da7"
 practice2_path:str = "2021/practice2_"+gppath+".html"
-practice3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/b4675f66-d4b8-4c63-8ad2-a9efdabf6599"
+practice3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/a430da1c-3294-42d0-8ad7-9c79369398c8"
 practice3_path:str = "2021/practice3_"+gppath+".html"
-q1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/c54392ea-d198-4a57-a3f6-189f5024a5cb"
+q1_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/8440b342-c38f-427c-ad23-119c3033b503"
 q1_path:str = "2021/q1_"+gppath+".html"
-q2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/e3a085d2-3e4b-47b4-bb30-669f881170e8"
+q2_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/7df7eb92-6ffa-44c7-af4d-83275fff1b0a"
 q2_path:str = "2021/q2_"+gppath+".html"
-q3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/723231ad-bfcb-4b91-a5fa-ee887906be2e"
+q3_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/58b3223e-932f-4ec8-a230-b7eb6afc8240"
 q3_path:str = "2021/q3_"+gppath+".html"
-q1_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/c54392ea-d198-4a57-a3f6-189f5024a5cb?fact=LapTime"
+q1_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/8440b342-c38f-427c-ad23-119c3033b503?fact=LapTime"
 q1_laptimes_path:str = "2021/q1_laptimes_"+gppath+".html"
-q2_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/e3a085d2-3e4b-47b4-bb30-669f881170e8?fact=LapTime"
+q2_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/7df7eb92-6ffa-44c7-af4d-83275fff1b0a?fact=LapTime"
 q2_laptimes_path:str = "2021/q2_laptimes_"+gppath+".html"
-q3_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/723231ad-bfcb-4b91-a5fa-ee887906be2e?fact=LapTime"
+q3_laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/58b3223e-932f-4ec8-a230-b7eb6afc8240?fact=LapTime"
 q3_laptimes_path:str = "2021/q3_laptimes_"+gppath+".html"
-starting_grid_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/classification/9062af11-7507-4e20-be50-88dd9ea43c2f"
+starting_grid_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/classification/a52f550b-6ef9-4886-a503-3bc4c6e616bf"
 starting_grid_path:str = "2021/starting_grid_"+gppath+".html" 
-driver_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/standings"
+driver_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/standings"
 driver_standings_path:str = "2021/driver_standings_"+gppath+".html"
-team_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/standings/teams"
+team_standings_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/standings/teams"
 team_standings_path:str = "2021/team_standings_"+gppath+".html" 
-pitstops_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=PitStop"
+pitstops_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/eba083ab-7192-490a-9d57-9192311485de?fact=PitStop"
 pitstops_path:str = "2021/pitstops_"+gppath+".html"
-fastest_laps_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=FastestLap"
+fastest_laps_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/eba083ab-7192-490a-9d57-9192311485de?fact=FastestLap"
 fastest_laps_path:str = "2021/fastest_laps_"+gppath+".html"
-lapchart_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=LapChart"
+lapchart_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/eba083ab-7192-490a-9d57-9192311485de?fact=LapChart"
 lapchart_path:str = "2021/lapchart_"+gppath+".html"
-laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-portuguese-grand-prix/session-facts/5248260a-4e86-4292-893e-df63559d67d3?fact=LapTime"
+laptimes_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2021-aramco-gran-premio-de-espana/session-facts/eba083ab-7192-490a-9d57-9192311485de?fact=LapTime"
 laptimes_path:str = "2021/laptime_"+gppath+".html"
-tyres_url:str = "https://www.racefans.net/2021/05/02/2021-portuguese-grand-prix-interactive-data-lap-charts-times-and-tyres/"
+tyres_url:str = "https://www.racefans.net/2021/05/09/2021-spanish-grand-prix-interactive-data-lap-charts-times-and-tyres/"
 tyres_path:str = "2021/tyres_"+gppath+".html"
 
-class Portugal2021:
+class Spain2021:
 
     def __init__(self) -> None:
         
-        print("Portugal2021")
+        print("Spain2021")
 
         self.loadData()
     
-        portugal2021 = Crawlf1web2021(drivers_path,
+        spain2021 = Crawlf1web2021(drivers_path,
                                         race_classification_path,
                                         practice1_path,
                                         practice2_path,
@@ -72,7 +72,7 @@ class Portugal2021:
                                         laptimes_path,
                                         tyres_path
                                         )
-        portugal2021.load()
+        spain2021.load()
 
     def loadData(self):
 
