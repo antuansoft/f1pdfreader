@@ -88,7 +88,6 @@ class Crawlf1web2021:
         self.parseTyres()
 
     def parseTyres(self):
-
         print("start  Tyres")
         # html_text: str = requests.get(self.tyres_url).text
         html_text: str = readFile(self.tyres_path)
@@ -100,6 +99,8 @@ class Crawlf1web2021:
         value_to_find: str = "Stint"
         for link in links:
             valueStr: str = str(link.thead)
+            # print(valueStr)
+            maxStints:int = valueStr.count("Stint")
             if (valueStr.find(value_to_find)>-1):
                 trs: list = link.tbody.find_all('tr')
                 for tr in trs:
@@ -114,13 +115,14 @@ class Crawlf1web2021:
                         if(index==0):
                             nomDriver = data
                             key=getdriverId(nomDriver,self.drivers)
-                            # print(key)
+                            # print("piloto:"+nomDriver)
                         elif (index>0):
-                            stint:Stint = Stint(None, None, None,None)
+                            stint:Stint = Stint(None, "",0,0)
                             stint.driver = nomDriver
-                            tyre = data.split()
-                            stint.tyre = tyre[0]
-                            stint.laps = tyre[1]
+                            if (data):
+                                tyre = data.split()
+                                stint.tyre = tyre[0]
+                                stint.laps = tyre[1]                                
                             stint.stintNum = index
                             stintsArr.append(stint)
                             # print(stint)
@@ -132,9 +134,10 @@ class Crawlf1web2021:
                     # print()
                 for key in self.tyres.keys():
                     stints = self.tyres[key]
+                    # print(stints)
                     for stint in stints:
                         print(stint)
-
+        print("end  Tyres")
 
     def parseLapTimesOrig(self):
         print("start  Lap Chart")
