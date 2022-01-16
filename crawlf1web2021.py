@@ -261,10 +261,9 @@ class Crawlf1web2021:
                 lap = ""
                 gap = ""
             rowCount = rowCount + 1
-        print("end Fastest Laps")
         for fL in self.fastestLaps:
             print(fL)
-
+        print("end Fastest Laps")
     def parsePitStop(self):
         print("start  Pit Stops")
         # html_text: str = requests.get(self.pit_stops_url).text
