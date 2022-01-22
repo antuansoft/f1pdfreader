@@ -6,6 +6,7 @@ from france2021y import France2021
 from monaco2021 import Monaco2021
 from portugal2021 import Portugal2021
 from spain2021 import Spain2021
+from styria2021 import Styria2021
 
 def main():
 
@@ -15,7 +16,8 @@ def main():
     # spain2021 = Spain2021()
     # monaco2021 = Monaco2021()
     # azerbaijan2021 = Azerbaijan2021()
-    france2021 = France2021()
+    # france2021 = France2021()
+    styria2021 = Styria2021()
     
 if __name__ == "__main__":
     main()
