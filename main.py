@@ -1,4 +1,5 @@
 
+from austria2021 import Austria2021
 from azerbaijan2021 import Azerbaijan2021
 from bahrain2021 import Bahrain2021
 from emiglia2021 import Emiglia2021
@@ -17,7 +18,9 @@ def main():
     # monaco2021 = Monaco2021()
     # azerbaijan2021 = Azerbaijan2021()
     # france2021 = France2021()
-    styria2021 = Styria2021()
+    # styria2021 = Styria2021()
+    austria2021 = Austria2021()
+    
     
 if __name__ == "__main__":
     main()
