@@ -1,4 +1,7 @@
 
+import sys
+sys.path.append('./2021code')
+
 from austria2021 import Austria2021
 from azerbaijan2021 import Azerbaijan2021
 from bahrain2021 import Bahrain2021
