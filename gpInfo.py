@@ -1,4 +1,5 @@
-# class GpInf
+# class GpInfo
+import yaml
 
 class GpInfo:
 
@@ -15,3 +16,8 @@ class GpInfo:
         return (self.gp + ":" + self.date + ":" + self.circuit + ":" + self.round  +
                 " of " + str(self.totalCircuits)
                 )
+
+    def toFile(self):
+       
+       documents = yaml.dump(self)
+       print(documents)      

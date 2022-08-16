@@ -19,6 +19,7 @@ from team import *
 
 class Crawlf1web2021:
 
+    gpInfo: GpInfo = None
     drivers:dict = dict() 
     teams:dict = dict() 
     raceResuts = []
@@ -86,6 +87,10 @@ class Crawlf1web2021:
         self.parseLapChart()
         self.parseLapTimes("Race",self.lap_times_path,self.lapTimes)
         self.parseTyres()
+
+    def exportData(self):
+        print("Export data")
+        self.exportInfo()
 
     def parseTyres(self):
         print("start  Tyres")
@@ -640,7 +645,7 @@ class Crawlf1web2021:
         round:str = ""
         total:str = "" 
         circuit:str= ""
-        gpInfo: GpInfo = None
+        self.gpInfo = None
         for link in links:
             if (type(link.get('class')) is not type(None)):
                 if (link.get('class')[0] == 'qQR9k'):
@@ -661,8 +666,16 @@ class Crawlf1web2021:
                     if (rowCount == 4):
                         circuit = link.text
                     rowCount = rowCount + 1
-        gpInfo = GpInfo(gp,circuit,date,round,total)
-        print(gpInfo)
+        self.gpInfo = GpInfo(gp,circuit,date,round,total)
+        print(self.gpInfo)
         print("end") 
         print("-----------------")
         
+    def exportInfo(self):
+        print("-----------------")
+        print(self.gpInfo)
+        print("-----------------")
+        self.gpInfo.toFile()
+        print("-------FIN----------")
+
+
