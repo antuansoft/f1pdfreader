@@ -88,9 +88,9 @@ class Crawlf1web2021:
         self.parseLapTimes("Race",self.lap_times_path,self.lapTimes)
         self.parseTyres()
 
-    def exportData(self):
+    def exportData(self,gppath):
         print("Export data")
-        self.exportInfo()
+        self.exportInfo(gppath)
 
     def parseTyres(self):
         print("start  Tyres")
@@ -671,11 +671,11 @@ class Crawlf1web2021:
         print("end") 
         print("-----------------")
         
-    def exportInfo(self):
+    def exportInfo(self, gppath):
         print("-----------------")
         print(self.gpInfo)
         print("-----------------")
-        self.gpInfo.toFile()
+        self.gpInfo.toFile(gppath)
         print("-------FIN----------")
 
 
