@@ -671,11 +671,17 @@ class Crawlf1web2021:
         print("end") 
         print("-----------------")
         
-    def exportInfo(self, gppath):
+    def export2Yml(self, gppath):
         print("-----------------")
         print(self.gpInfo)
         print("-----------------")
-        self.gpInfo.toFile(gppath)
+        self.gpInfo.toYml(gppath)
         print("-------FIN----------")
 
+    def export2Json(self, gppath):
+        print("-----------------")
+        print(self.gpInfo)
+        print("-----------------")
+        self.gpInfo.toJson(gppath)
+        print("-------FIN----------")
 

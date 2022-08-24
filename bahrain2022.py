@@ -76,7 +76,7 @@ class Bahrain2022:
                                         tyres_path
                                         )
         bahrain2022.load()
-        bahrain2022.exportData(gppath)
+        bahrain2022.export2Json(gppath)
 
     def loadData(self):
 

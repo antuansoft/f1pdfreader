@@ -1,6 +1,7 @@
 # class GpInfo
 from ast import Str
 import yaml
+import json
 
 class GpInfo:
 
@@ -19,8 +20,13 @@ class GpInfo:
                 " of " + str(self.totalCircuits)
                 )
 
-    def toFile(self, gppath):
+    def toYml(self, gppath):
        
        with open(self.path + gppath +".yml", 'w') as file:
         documents = yaml.dump(self,file)
        print(documents)      
+
+    def toJson(self,gppath):
+       with open(self.path + gppath +".json", 'w') as file:
+        document = json.dump(self.__dict__,file)
+       print(json.dumps(self.__dict__))
