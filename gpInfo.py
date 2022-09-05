@@ -5,7 +5,6 @@ import json
 
 class GpInfo:
 
-    path : str = "2022export/gpinfo"
     def __init__(self, gp, circuit, date, round, totalCircuits ):
         
         self.gp = gp
@@ -26,7 +25,7 @@ class GpInfo:
         documents = yaml.dump(self,file)
        print(documents)      
 
-    def toJson(self,gppath):
-       with open(self.path + gppath +".json", 'w') as file:
-        document = json.dump(self.__dict__,file)
+    def toJson(self):
        print(json.dumps(self.__dict__))
+       return json.dumps(self.__dict__)
+       

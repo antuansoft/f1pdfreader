@@ -679,9 +679,30 @@ class Crawlf1web2021:
         print("-------FIN----------")
 
     def export2Json(self, gppath):
-        print("-----------------")
+        path_gpinfo : str = "2022export/gpinfo"
+        print("------GPINFO-----------")
         print(self.gpInfo)
         print("-----------------")
-        self.gpInfo.toJson(gppath)
+        json_gpinfo: str = self.gpInfo.toJson()
+        file_gpinfo = open(path_gpinfo+gppath+".json", "w")
+        file_gpinfo.write(json_gpinfo)
+        file_gpinfo.close()
+
+        print("------DRIVERS-----------")
+        print(self.drivers)
+        drivers_str: str = "{\"drivers\": ["
+
+        for key in self.drivers.keys():
+            driver: Driver = self.drivers[key]
+            print(driver)
+            json: str = driver.toJson(gppath)
+            drivers_str += json
+            drivers_str += ","
+        drivers_str += "]}"
+        print(drivers_str)
+        path_drivers : str = "2022export/drivers"
+        file_drivers = open(path_drivers+gppath+".json", "w")
+        file_drivers.write(drivers_str)
+        file_drivers.close()
         print("-------FIN----------")
 
