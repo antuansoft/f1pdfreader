@@ -698,6 +698,7 @@ class Crawlf1web2021:
             json: str = driver.toJson(gppath)
             drivers_str += json
             drivers_str += ","
+        drivers_str = drivers_str[:-1] # remove laste ,
         drivers_str += "]}"
         print(drivers_str)
         path_drivers : str = "2022export/drivers"
