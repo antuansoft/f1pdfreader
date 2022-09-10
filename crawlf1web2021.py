@@ -698,12 +698,28 @@ class Crawlf1web2021:
             json: str = driver.toJson(gppath)
             drivers_str += json
             drivers_str += ","
-        drivers_str = drivers_str[:-1] # remove laste ,
+        drivers_str = drivers_str[:-1] # remove last ,
         drivers_str += "]}"
         print(drivers_str)
         path_drivers : str = "2022export/drivers"
         file_drivers = open(path_drivers+gppath+".json", "w")
         file_drivers.write(drivers_str)
         file_drivers.close()
+
+        print("------LAP CHART-----------")
+        print(self.lapCharts)
+
+        lapchart_str: str = "{"
+        for lap in self.lapCharts:
+            lapchart_str += lap.toJson()
+            lapchart_str += ","
+        lapchart_str = lapchart_str[:-1] # remove last ,
+        lapchart_str += "}"
+        print(lapchart_str)
+
+        path_lapchart : str = "2022export/lapchart"
+        file_lapchart = open(path_lapchart+gppath+".json", "w")
+        file_lapchart.write(lapchart_str)
+        file_lapchart.close()
         print("-------FIN----------")
 

@@ -24,7 +24,5 @@ class Driver:
        print(documents)      
 
     def toJson(self,gppath)-> str:
-       # with open(self.path + gppath +".json", 'w') as file:
-       #  document = json.dump(self.__dict__,file)
        print(json.dumps(self.__dict__))
        return json.dumps(self.__dict__)
