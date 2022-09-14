@@ -721,5 +721,25 @@ class Crawlf1web2021:
         file_lapchart = open(path_lapchart+gppath+".json", "w")
         file_lapchart.write(lapchart_str)
         file_lapchart.close()
+
+
+        print("------LAP TIME-----------")
+        laptime_str: str = "{"
+        for pilot in self.lapTimes.keys():
+           print(pilot)
+           laptime_str += "\"" + pilot + "\":["
+           for lt in self.lapTimes[pilot]:
+               laptime_str += str(lt.time) + ","
+           laptime_str = laptime_str[:-1] # remove last ,           
+           laptime_str += "],"
+        laptime_str = laptime_str[:-1] # remove last ,           
+        laptime_str += "}"
+        print(laptime_str)
+
+        path_laptime : str = "2022export/laptime"
+        file_laptime = open(path_laptime+gppath+".json", "w")
+        file_laptime.write(laptime_str)
+        file_laptime.close()
+
         print("-------FIN----------")
 
