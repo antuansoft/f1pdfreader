@@ -269,6 +269,7 @@ class Crawlf1web2021:
         for fL in self.fastestLaps:
             print(fL)
         print("end Fastest Laps")
+    
     def parsePitStop(self):
         print("start  Pit Stops")
         # html_text: str = requests.get(self.pit_stops_url).text
@@ -458,7 +459,6 @@ class Crawlf1web2021:
         kph:str = ""
         besttime:str = ""
         bestlap:str = ""
-        q1: StartingGrid
         for link in links:
             if (rowCount == 1):
                 position = getString(link.string)
@@ -740,6 +740,19 @@ class Crawlf1web2021:
         file_laptime = open(path_laptime+gppath+".json", "w")
         file_laptime.write(laptime_str)
         file_laptime.close()
+
+        print("------Starting Grid-----------")
+        starting_grid: str = "["
+        for grid in self.startingGrids:
+            starting_grid += grid.toJson()
+            starting_grid += ","
+        starting_grid = starting_grid[:-1] # remove last ,           
+        starting_grid += "]"
+        print(starting_grid)        
+        path_starting_grid : str = "2022export/starting_grid"
+        file_starting_grid = open(path_starting_grid+gppath+".json", "w")
+        file_starting_grid.write(starting_grid)
+        file_starting_grid.close()
 
         print("-------FIN----------")
 

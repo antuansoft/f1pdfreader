@@ -1,4 +1,4 @@
-# class team
+import json
 
 class StartingGrid:
 
@@ -26,3 +26,6 @@ class StartingGrid:
                 self.laps + ":" + self.time + ":" + self.gap2leader + 
                 ":" + self.interval2next + ":" + self.kph + ":" + 
                 self.besttime + ":" + self.bestlap)
+
+    def toJson(self):
+       return json.dumps(self.__dict__)
