@@ -754,5 +754,23 @@ class Crawlf1web2021:
         file_starting_grid.write(starting_grid)
         file_starting_grid.close()
 
+        print("------Pit Stops-----------")
+      
+        pits_str: str = "{"
+        for pit in self.pitStops.keys():
+           print(pit)
+           pits_str += "\"" + pit + "\":["
+           for pt in self.pitStops[pit]:
+               pits_str += pt.toJson()
+               pits_str += ","
+           pits_str = pits_str[:-1] # remove last ,           
+           pits_str += "],"
+        pits_str = pits_str[:-1] # remove last ,           
+        pits_str += "}"
+        print(pits_str)
+        path_pits : str = "2022export/pit_stops"
+        file_pits = open(path_pits+gppath+".json", "w")
+        file_pits.write(pits_str)
+        file_pits.close()        
         print("-------FIN----------")
 

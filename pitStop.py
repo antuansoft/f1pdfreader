@@ -1,5 +1,8 @@
 # class PitStop
 
+import json
+
+
 class PitStop:
 
     def __init__(self, number, driver, team, lap, stop, time, timeTotal):
@@ -17,3 +20,6 @@ class PitStop:
                 self.team  + ":" + self.lap + ":" + 
                 self.stop  + ":" + self.time  + ":" + 
                 self.timeTotal)
+
+    def toJson(self):
+       return json.dumps(self.__dict__)
