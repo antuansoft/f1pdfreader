@@ -19,8 +19,7 @@ def getdriverId(driver: str, drivers:dict)->int:
     for key in drivers.keys():
         name:str=drivers[key].name
         nameParts = driver.split()
-        surname=nameParts[len(nameParts)-1]
-        # print(surname)
+        surname=nameParts[1]
         if surname in name:
             return key
     return None
@@ -53,3 +52,20 @@ def saveWeb(webHtml:str,pathToFile:str):
             print(pathToFile + " saved")
         else:
             print(pathToFile + " already exits.")
+
+def normalize(s):
+    replacements = (
+        ("á", "a"),
+        ("é", "e"),
+        ("í", "i"),
+        ("ó", "o"),
+        ("ú", "u"),
+        ("ä", "a"),
+        ("ë", "e"),
+        ("ï", "i"),
+        ("ö", "o"),
+        ("ü", "u"),
+    )
+    for a, b in replacements:
+        s = s.replace(a, b).replace(a.upper(), b.upper())
+    return s

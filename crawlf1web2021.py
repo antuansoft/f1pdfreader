@@ -120,7 +120,8 @@ class Crawlf1web2021:
                         if(index==0):
                             nomDriver = data
                             key=getdriverId(nomDriver,self.drivers)
-                            # print("piloto:"+nomDriver)
+                            print("piloto:"+nomDriver)
+                            print("key:"+key)
                         elif (index>0):
                             stint:Stint = Stint(None, "",0,0)
                             stint.driver = nomDriver
@@ -142,7 +143,7 @@ class Crawlf1web2021:
                     # print(stints)
                     for stint in stints:
                         print(stint)
-        print("end  Tyres")
+        print("end tyres")
 
     def parseLapTimesOrig(self):
         print("start  Lap Chart")
@@ -597,7 +598,7 @@ class Crawlf1web2021:
             if (rowCount == 1):
                 number = getString(link.string)
             elif (rowCount == 2):
-                driver = getString(link.string)
+                driver = normalize(getString(link.string))
             elif (rowCount == 3):
                 nationality = getString(link.string)
             elif (rowCount == 4):
@@ -772,5 +773,26 @@ class Crawlf1web2021:
         file_pits = open(path_pits+gppath+".json", "w")
         file_pits.write(pits_str)
         file_pits.close()        
+
+
+        print("------Tyres-----------")
+        
+        tyres_str: str = "{"
+        for tyre in self.tyres.keys(): 
+           print(tyre)
+           tyres_str += "\"" + tyre + "\":["
+           for ty in self.tyres[tyre]:
+               tyres_str += ty.toJson()
+               tyres_str += ","
+           tyres_str = tyres_str[:-1] # remove last ,           
+           tyres_str += "],"
+        tyres_str = tyres_str[:-1] # remove last ,           
+        tyres_str += "}"
+        print(tyres_str)
+        path_tyres : str = "2022export/tyres"
+        file_tyres = open(path_tyres+gppath+".json", "w")
+        file_tyres.write(tyres_str)
+        file_tyres.close()
+
         print("-------FIN----------")
 
