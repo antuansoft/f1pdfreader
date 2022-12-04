@@ -128,7 +128,7 @@ class Crawlf1web2021:
                             if (data):
                                 tyre = data.split()
                                 stint.tyre = tyre[0]
-                                stint.laps = tyre[1]                                
+                                stint.laps = normalize_number(tyre[1])                                
                             stint.stintNum = index
                             stintsArr.append(stint)
                             # print(stint)

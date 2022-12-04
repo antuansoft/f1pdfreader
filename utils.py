@@ -69,3 +69,12 @@ def normalize(s):
     for a, b in replacements:
         s = s.replace(a, b).replace(a.upper(), b.upper())
     return s
+
+def normalize_number(s):
+    replacements = (
+        ("(", ""),
+        (")", ""),
+    )
+    for a, b in replacements:
+        s = s.replace(a, b).replace(a.upper(), b.upper())
+    return s
