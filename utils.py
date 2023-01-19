@@ -29,7 +29,7 @@ def readFile(filePath:str)->str:
     f = open(filePath, "r")
     return f.read()
 
-# Downlad Url and return html string
+# Download Url and return html string
 def downloadUrl(url:str)->str:
     if (url != ""):
         print("download:"+url)

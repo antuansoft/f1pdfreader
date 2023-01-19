@@ -3,8 +3,11 @@
 
 from crawlf1web2021 import Crawlf1web2021
 from utils import *
+from bs4 import BeautifulSoup
 
 gppath:str= "_bahrein2022"
+main_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix"
+main_path:str = "2022/index"+gppath+".html"
 drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix"
 drivers_path:str = "2022/drivers_teams"+gppath+".html"
 race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix/classification"
@@ -53,30 +56,69 @@ class Bahrain2022:
         
         print("Bahrain2022")
 
-        self.loadData()
+        self.loadUrls()
+        # self.loadData()
     
-        bahrain2022 = Crawlf1web2021(drivers_path,
-                                        race_classification_path,
-                                        practice1_path,
-                                        practice2_path,
-                                        practice3_path,
-                                        q1_path,
-                                        q2_path,
-                                        q3_path,
-                                        q1_laptimes_path,
-                                        q2_laptimes_path,
-                                        q3_laptimes_path,
-                                        starting_grid_path,
-                                        driver_standings_path,
-                                        team_standings_path,
-                                        pitstops_path,
-                                        fastest_laps_path,
-                                        lapchart_path,
-                                        laptimes_path,
-                                        tyres_path
-                                        )
-        bahrain2022.load()
-        bahrain2022.export2Json(gppath)
+        # bahrain2022 = Crawlf1web2021(drivers_path,
+        #                                 race_classification_path,
+        #                                 practice1_path,
+        #                                 practice2_path,
+        #                                 practice3_path,
+        #                                 q1_path,
+        #                                 q2_path,
+        #                                 q3_path,
+        #                                 q1_laptimes_path,
+        #                                 q2_laptimes_path,
+        #                                 q3_laptimes_path,
+        #                                 starting_grid_path,
+        #                                 driver_standings_path,
+        #                                 team_standings_path,
+        #                                 pitstops_path,
+        #                                 fastest_laps_path,
+        #                                 lapchart_path,
+        #                                 laptimes_path,
+        #                                 tyres_path
+        #                                 )
+        # bahrain2022.load()
+        # bahrain2022.export2Json(gppath)
+
+    def loadUrls(self):
+
+        print("loadUrls")
+        # html_text: str = requests.get(self.drivers_url).text
+        ## Parse urls
+        main_html:str=downloadUrl(main_url)
+        saveWeb(main_html,main_path)
+        soup = BeautifulSoup(main_html, 'html.parser')
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('a', href=True, class_='uaJW4 kicqf')
+        print("links encontrados:" + str(len(links)))
+        classification_temp_url:str
+        session_facts_temp_url:str
+        standings_temp_url:str
+        url_counter:int=0
+        for link in links:
+            print(link.string)
+            if ('classification' in link.string.lower()):
+                classification_temp_url=link['href']
+                url_counter+=1
+            if ('session' in link.string.lower()):
+                session_facts_temp_url=link['href']
+                url_counter+=1
+            if ('standings' in link.string.lower()):
+                standings_temp_url=link['href']
+                url_counter+=1                          
+            print(url_counter)    
+
+
+
+        ## Set urls
+        drivers_url = main_url
+
+
+        print("fin loadUrls")
+
 
     def loadData(self):
 
