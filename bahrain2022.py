@@ -6,9 +6,16 @@ from utils import *
 from bs4 import BeautifulSoup
 
 gppath:str= "_bahrein2022"
+## Page URLS and path
 main_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix"
 main_path:str = "2022/index"+gppath+".html"
-drivers_url = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix"
+classification_path:str = "2022/classification"+gppath+".html"
+session_path:str = "2022/session"+gppath+".html"
+standings_path:str = "2022/standings"+gppath+".html"
+
+##Data Urls
+base_url:str = "https://fiaresultsandstatistics.motorsportstats.com"
+drivers_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix"
 drivers_path:str = "2022/drivers_teams"+gppath+".html"
 race_classification_url:str = "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix/classification"
 race_classification_path:str = "2022/race_classification"+gppath+".html"
@@ -87,6 +94,8 @@ class Bahrain2022:
         print("loadUrls")
         # html_text: str = requests.get(self.drivers_url).text
         ## Parse urls
+        ## main URL
+        print("Main URL")
         main_html:str=downloadUrl(main_url)
         saveWeb(main_html,main_path)
         soup = BeautifulSoup(main_html, 'html.parser')
@@ -101,20 +110,81 @@ class Bahrain2022:
         for link in links:
             print(link.string)
             if ('classification' in link.string.lower()):
-                classification_temp_url=link['href']
+                classification_temp_url=base_url + link['href']
                 url_counter+=1
             if ('session' in link.string.lower()):
-                session_facts_temp_url=link['href']
+                session_facts_temp_url=base_url + link['href']
                 url_counter+=1
             if ('standings' in link.string.lower()):
-                standings_temp_url=link['href']
+                standings_temp_url=base_url + link['href']
                 url_counter+=1                          
-            print(url_counter)    
+
+        ## validation
+        if (not url_counter==3):
+           raise Exception("Main url has not been properly proccessed")
+
+        ## classificaion URL 
+        print("Classification URL")
+        classification_html:str=downloadUrl(classification_temp_url)
+        saveWeb(classification_html,classification_path)
+        soup = BeautifulSoup(classification_html, 'html.parser')  
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('a', href=True, class_='uaJW4 _2j84j')
+        print("links encontrados:" + str(len(links)))
+        first_practice_temp_url:str
+        second_practice_temp_url:str
+        third_practice_temp_url:str
+        q1_temp_url:str
+        q2_temp_url:str
+        q3_temp_url:str
+        for link in links:
+            print(link.string)
+            if ('1' in link.string.lower() and 'practice' in link.string.lower() ):
+                first_practice_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('2' in link.string.lower() and 'practice' in link.string.lower() ):
+                second_practice_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('3' in link.string.lower() and 'practice' in link.string.lower() ):
+                third_practice_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('1' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q1_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('2' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q2_temp_url=base_url + link['href']
+                url_counter+=1                
+            if ('3' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q3_temp_url=base_url + link['href']
+                url_counter+=1                
+
+        ## validation
+        if (not url_counter==9):
+           raise Exception("Classification url has not been properly proccessed")
 
 
+        ## Session URL 
+        print("Session URL")
+        session_html:str=downloadUrl(session_facts_temp_url)
+        saveWeb(session_html,session_path)
+        soup = BeautifulSoup(session_html, 'html.parser')  
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('a', href=True, class_='SaViI')
+        print("links encontrados:" + str(len(links)))
+        for link in links:
+            print(link.string)
 
         ## Set urls
         drivers_url = main_url
+        race_classification_url=classification_temp_url
+        practice1_url = first_practice_temp_url
+        practice2_url = second_practice_temp_url
+        practice3_url = third_practice_temp_url
+        q1_url = q1_temp_url
+        q2_url = q2_temp_url
+        q3_url = q3_temp_url
 
 
         print("fin loadUrls")
