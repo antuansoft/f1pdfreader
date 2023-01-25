@@ -138,6 +138,7 @@ class Bahrain2022:
         q1_temp_url:str
         q2_temp_url:str
         q3_temp_url:str
+        starting_grid_temp_url:str
         for link in links:
             print(link.string)
             if ('1' in link.string.lower() and 'practice' in link.string.lower() ):
@@ -158,9 +159,11 @@ class Bahrain2022:
             if ('3' in link.string.lower() and 'qualifying' in link.string.lower() ):
                 q3_temp_url=base_url + link['href']
                 url_counter+=1                
-
+            if ('grid' in link.string.lower() ):
+                starting_grid_temp_url = base_url + link['href']
+                url_counter+=1
         ## validation
-        if (not url_counter==9):
+        if (not url_counter==10):
            raise Exception("Classification url has not been properly proccessed")
 
 
@@ -173,8 +176,37 @@ class Bahrain2022:
         print("---------------------")
         links:list = soup.find_all('a', href=True, class_='SaViI')
         print("links encontrados:" + str(len(links)))
+        fastest_lap_temp_url:str
+        lap_chart_temp_url:str
+        lap_times_temp_url:str
+        max_speeds_temp_url:str
+        pit_stop_temp_url:str
+
         for link in links:
             print(link.string)
+
+            if ('fastest' in link.string.lower()):
+                fastest_lap_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('chart' in link.string.lower()):
+                lap_chart_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('times' in link.string.lower()):
+                lap_times_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('speeds' in link.string.lower()):
+                max_speeds_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('pit' in link.string.lower()):
+                pit_stop_temp_url=base_url + link['href']
+                url_counter+=1
+
+        ## validation
+        if (not url_counter==15):
+           raise Exception("Session url has not been properly proccessed")
+
+
+
 
         ## Set urls
         drivers_url = main_url
@@ -185,6 +217,12 @@ class Bahrain2022:
         q1_url = q1_temp_url
         q2_url = q2_temp_url
         q3_url = q3_temp_url
+        starting_grid_url = starting_grid_temp_url
+        fastest_laps_url = fastest_lap_temp_url
+        lapchart_url = lap_chart_temp_url
+        laptimes_url = lap_times_temp_url
+        pitstops_url = pit_stop_temp_url
+
 
 
         print("fin loadUrls")
