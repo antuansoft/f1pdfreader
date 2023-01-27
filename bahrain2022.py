@@ -94,6 +94,7 @@ class Bahrain2022:
         print("loadUrls")
         # html_text: str = requests.get(self.drivers_url).text
         ## Parse urls
+        
         ## main URL
         print("Main URL")
         main_html:str=downloadUrl(main_url)
@@ -167,8 +168,8 @@ class Bahrain2022:
            raise Exception("Classification url has not been properly proccessed")
 
 
-        ## Session URL 
-        print("Session URL")
+        ## Session Facts URL 
+        print("Session Facts URL 1 ")
         session_html:str=downloadUrl(session_facts_temp_url)
         saveWeb(session_html,session_path)
         soup = BeautifulSoup(session_html, 'html.parser')  
@@ -179,7 +180,6 @@ class Bahrain2022:
         fastest_lap_temp_url:str
         lap_chart_temp_url:str
         lap_times_temp_url:str
-        max_speeds_temp_url:str
         pit_stop_temp_url:str
 
         for link in links:
@@ -194,19 +194,71 @@ class Bahrain2022:
             if ('times' in link.string.lower()):
                 lap_times_temp_url=base_url + link['href']
                 url_counter+=1
-            if ('speeds' in link.string.lower()):
-                max_speeds_temp_url=base_url + link['href']
-                url_counter+=1
             if ('pit' in link.string.lower()):
                 pit_stop_temp_url=base_url + link['href']
                 url_counter+=1
 
         ## validation
-        if (not url_counter==15):
-           raise Exception("Session url has not been properly proccessed")
+        if (not url_counter==14):
+           raise Exception("Session  Fact 1 url has not been properly proccessed")
 
 
 
+        ## Session Facts 2 URL 
+        print("Session Facts URL 2 ")
+        session_html:str=downloadUrl(session_facts_temp_url)
+        saveWeb(session_html,session_path)
+        soup = BeautifulSoup(session_html, 'html.parser')  
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('a', href=True, class_='uaJW4 _2_7Br')
+        print("links encontrados:" + str(len(links)))
+        q1_facts_temp_url:str
+        q2_facts_temp_url:str
+        q3_facts_temp_url:str
+        
+        for link in links:
+            print(link.string)
+
+            if ('1' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q1_facts_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('2' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q2_facts_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('3' in link.string.lower() and 'qualifying' in link.string.lower() ):
+                q3_facts_temp_url=base_url + link['href']
+                url_counter+=1
+
+        ## validation
+        if (not url_counter==17):
+           raise Exception("Session  Fact 2 url has not been properly proccessed")
+
+
+
+        ## Standings URL 
+        print("Standings URL")
+        session_html:str=downloadUrl(standings_temp_url)
+        saveWeb(session_html,session_path)
+        soup = BeautifulSoup(session_html, 'html.parser')  
+        print("parseado:"+ soup.title.string)
+        print("---------------------")
+        links:list = soup.find_all('a', href=True, class_='uaJW4')
+        print("links encontrados:" + str(len(links)))
+        driver_standings_temp_url:str
+        team_standings_temp_url:str
+        for link in links:
+            print(link.string)
+            if ('driver' in link.string.lower()):
+                driver_standings_temp_url=base_url + link['href']
+                url_counter+=1
+            if ('team' in link.string.lower()):
+                team_standings_temp_url=base_url + link['href']
+                url_counter+=1
+
+        ## validation
+        if (not url_counter==19):
+           raise Exception("Standings url has not been properly proccessed")
 
         ## Set urls
         drivers_url = main_url
@@ -222,7 +274,8 @@ class Bahrain2022:
         lapchart_url = lap_chart_temp_url
         laptimes_url = lap_times_temp_url
         pitstops_url = pit_stop_temp_url
-
+        driver_standings_url = driver_standings_temp_url
+        team_standings_url = team_standings_temp_url
 
 
         print("fin loadUrls")
