@@ -12,6 +12,9 @@ main_path:str = "2022/index"+gppath+".html"
 classification_path:str = "2022/classification"+gppath+".html"
 session_path:str = "2022/session"+gppath+".html"
 standings_path:str = "2022/standings"+gppath+".html"
+q1_facts_path_str = "2022/q1_facts"+gppath+".html"
+q2_facts_path_str = "2022/q2_facts"+gppath+".html"
+q3_facts_path_str = "2022/q3_facts"+gppath+".html"
 
 ##Data Urls
 base_url:str = "https://fiaresultsandstatistics.motorsportstats.com"
@@ -234,9 +237,40 @@ class Bahrain2022:
         if (not url_counter==17):
            raise Exception("Session  Fact 2 url has not been properly proccessed")
 
+        #QX_Facts Urls
+        q1_laptimes_temp_url:str = None
+        q2_laptimes_temp_url:str = None
+        q3_laptimes_temp_url:str = None
+        q_facts = [q1_facts_temp_url,q2_facts_temp_url,q3_facts_temp_url]
+        q_paths = [q1_facts_path_str,q2_facts_path_str,q3_facts_path_str]
+        q_laptimes = []
+        index:int = 0
+        for q_fact in q_facts:
+            q_html:str=downloadUrl(q_fact)
+            saveWeb(q_html,q_paths[index])
+            soup = BeautifulSoup(q_html, 'html.parser')  
+            print("parseado:"+ soup.title.string)
+            print("---------------------")            
+            links:list = soup.find_all('a', href=True, class_='SaViI')
+            print("links encontrados:" + str(len(links)))
+            for link in links:
+                print(link.string)
+                if ('times' in link.string.lower()):
+                    q_laptimes.append(base_url + link['href'])
+                    print(q_laptimes[index])
+                    url_counter+=1
+            index+=1
 
+        q1_laptimes_temp_url = q_laptimes[0]
+        q2_laptimes_temp_url = q_laptimes[1]
+        q3_laptimes_temp_url = q_laptimes[2]
+        
 
-        ## Standings URL 
+        ## validation
+        if (not url_counter==20):
+           raise Exception("Qx Facts url has not been properly proccessed")
+
+        # Standings URL 
         print("Standings URL")
         session_html:str=downloadUrl(standings_temp_url)
         saveWeb(session_html,session_path)
@@ -257,7 +291,7 @@ class Bahrain2022:
                 url_counter+=1
 
         ## validation
-        if (not url_counter==19):
+        if (not url_counter==22):
            raise Exception("Standings url has not been properly proccessed")
 
         ## Set urls
@@ -274,6 +308,9 @@ class Bahrain2022:
         lapchart_url = lap_chart_temp_url
         laptimes_url = lap_times_temp_url
         pitstops_url = pit_stop_temp_url
+        q1_laptimes_url = q1_laptimes_temp_url
+        q2_laptimes_url = q2_laptimes_temp_url
+        q3_laptimes_url = q3_laptimes_temp_url
         driver_standings_url = driver_standings_temp_url
         team_standings_url = team_standings_temp_url
 
