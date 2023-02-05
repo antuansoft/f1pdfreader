@@ -420,7 +420,7 @@ class Crawlf1web2022:
         laptimes_html:str=downloadUrl(self.laptimes_url)
         saveWeb(laptimes_html,self.laptimes_path)
 
-        tyres_html:str=downloadUrl(tyres_url)
+        tyres_html:str=downloadUrl(self.tyres_url)
         saveWeb(tyres_html,self.tyres_path)
 
     def parseUrls(self):
