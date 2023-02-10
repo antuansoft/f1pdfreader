@@ -447,7 +447,7 @@ class Crawlf1web2022:
 
     def exportData(self,gppath):
         print("Export data")
-        self.export2Json(gppath)
+        # self.export2Json(gppath)
 
     def parseTyres(self):
         print("start  Tyres")
@@ -473,6 +473,7 @@ class Crawlf1web2022:
                     stintsArr = []
                     for stnt in stints:
                         data:str = stnt.string
+                        print("data:"+data)
                         key:int
                         if(index==0):
                             nomDriver = data
@@ -482,12 +483,14 @@ class Crawlf1web2022:
                         elif (index>0):
                             stint:Stint = Stint(None, "",0,0)
                             stint.driver = nomDriver
-                            if (data):
+                            if (data):                                
                                 tyre = data.split()
                                 stint.tyre = tyre[0]
                                 stint.laps = normalize_number(tyre[1])                                
                             stint.stintNum = index
                             stintsArr.append(stint)
+                            print("stint")
+                            print(stint)
                             # print(stint)
                             # print(stintsArr)
                         index = index + 1
