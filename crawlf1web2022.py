@@ -447,7 +447,7 @@ class Crawlf1web2022:
 
     def exportData(self,gppath):
         print("Export data")
-        # self.export2Json(gppath)
+        self.export2Json(gppath)
 
     def parseTyres(self):
         print("start  Tyres")
@@ -1144,7 +1144,8 @@ class Crawlf1web2022:
            for ty in self.tyres[tyre]:
                tyres_str += ty.toJson()
                tyres_str += ","
-           tyres_str = tyres_str[:-1] # remove last ,           
+           if (tyres_str[-1:] == ","):
+               tyres_str = tyres_str[:-1] # remove last ,           
            tyres_str += "],"
         tyres_str = tyres_str[:-1] # remove last ,           
         tyres_str += "}"
