@@ -41,6 +41,7 @@ def downloadUrl(url:str)->str:
         return ""
 
 def saveWeb(webHtml:str,pathToFile:str):
+    print("pathToFile:"+ pathToFile)
     
     if (webHtml!=""):
         file_exists = exists(pathToFile)

@@ -14,7 +14,8 @@ class Bahrain2022:
     def __init__(self) -> None:
         
         print("Generating Bahrain2022")
-        bahrain2022 = Crawlf1web2022(gppath,
+        bahrain2022 = Crawlf1web2022("2022",
+                                     gppath,
                                      "https://fiaresultsandstatistics.motorsportstats.com/results/2022-bahrain-grand-prix",
                                      "https://www.racefans.net/2022/03/20/2022-bahrain-grand-prix-interactive-data-lap-charts-times-and-tyres/")
         

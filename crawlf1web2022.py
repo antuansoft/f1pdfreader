@@ -17,6 +17,7 @@ from utils import *
 from driver import *
 from team import *
 
+year:str = ""
 gppath:str= ""
 ## Page URLS and path
 main_url:str = ""
@@ -33,7 +34,6 @@ q3_facts_path_str = ""
 ##Data Urls
 base_url:str = "https://fiaresultsandstatistics.motorsportstats.com"
 drivers_url:str = ""
-# drivers_path:str = "2022/drivers_teams"+gppath+".html"
 race_classification_url:str = ""
 race_classification_path:str = ""
 practice1_url:str = ""
@@ -95,42 +95,43 @@ class Crawlf1web2022:
     lapTimesq3:dict = dict()
     tyres:dict = dict()
 
-    def __init__(self, gppath, mainGpUrl,tyresGpUrl):
+    def __init__(self, year, gppath, mainGpUrl,tyresGpUrl):
+        self.year = year
         self.gppath = gppath
         self.main_url = mainGpUrl
         self.tyres_url = tyresGpUrl
 
-        self.main_path = "2022/index"+gppath+".html"
-        self.tyres_path = "2022/tyres_"+gppath+".html"
-        self.classification_path = "2022/classification"+gppath+".html"
-        self.session_path = "2022/session"+gppath+".html"
-        self.standings_path = "2022/standings"+gppath+".html"
-        self.q1_facts_path_str = "2022/q1_facts"+gppath+".html"
-        self.q2_facts_path_str = "2022/q2_facts"+gppath+".html"
-        self.q3_facts_path_str = "2022/q3_facts"+gppath+".html"
+        self.main_path = year+"/index"+gppath+".html"
+        self.tyres_path = year+"/tyres_"+gppath+".html"
+        self.classification_path = year+"/classification"+gppath+".html"
+        self.session_path = year+"/session"+gppath+".html"
+        self.standings_path = year+"/standings"+gppath+".html"
+        self.q1_facts_path_str = year+"/q1_facts"+gppath+".html"
+        self.q2_facts_path_str = year+"/q2_facts"+gppath+".html"
+        self.q3_facts_path_str = year+"/q3_facts"+gppath+".html"
 
-        self.drivers_path = "2022/drivers_teams"+gppath+".html"
-        self.race_classification_path = "2022/race_classification"+gppath+".html"
-        self.practice1_path= "2022/practice1_"+gppath+".html"
-        self.practice2_path= "2022/practice2_"+gppath+".html"
-        self.practice3_path = "2022/practice3_"+gppath+".html"
+        self.drivers_path = year+"/drivers_teams"+gppath+".html"
+        self.race_classification_path = year+"/race_classification"+gppath+".html"
+        self.practice1_path= year+"/practice1_"+gppath+".html"
+        self.practice2_path= year+"/practice2_"+gppath+".html"
+        self.practice3_path = year+"/practice3_"+gppath+".html"
         
-        self.q1_path:str = "2022/q1_"+gppath+".html"
+        self.q1_path:str = year+"/q1_"+gppath+".html"
         
-        self.q2_path:str = "2022/q2_"+gppath+".html"
+        self.q2_path:str = year+"/q2_"+gppath+".html"
         
-        self.q3_path:str = "2022/q3_"+gppath+".html"
-        self.q1_laptimes_path:str = "2022/q1_laptimes_"+gppath+".html"
-        self.q2_laptimes_path:str = "2022/q2_laptimes_"+gppath+".html"
-        self.q3_laptimes_path:str = "2022/q3_laptimes_"+gppath+".html"
+        self.q3_path:str = year+"/q3_"+gppath+".html"
+        self.q1_laptimes_path:str = year+"/q1_laptimes_"+gppath+".html"
+        self.q2_laptimes_path:str = year+"/q2_laptimes_"+gppath+".html"
+        self.q3_laptimes_path:str = year+"/q3_laptimes_"+gppath+".html"
 
-        self.starting_grid_path:str = "2022/starting_grid_"+gppath+".html" 
-        self.driver_standings_path:str = "2022/driver_standings_"+gppath+".html"
-        self.team_standings_path:str = "2022/team_standings_"+gppath+".html" 
-        self.pitstops_path:str = "2022/pitstops_"+gppath+".html"
-        self.fastest_laps_path:str = "2022/fastest_laps_"+gppath+".html"
-        self.lapchart_path:str = "2022/lapchart_"+gppath+".html"
-        self.laptimes_path:str = "2022/laptime_"+gppath+".html"        
+        self.starting_grid_path:str = year+"/starting_grid_"+gppath+".html" 
+        self.driver_standings_path:str = year+"/driver_standings_"+gppath+".html"
+        self.team_standings_path:str = year+"/team_standings_"+gppath+".html" 
+        self.pitstops_path:str = year+"/pitstops_"+gppath+".html"
+        self.fastest_laps_path:str = year+"/fastest_laps_"+gppath+".html"
+        self.lapchart_path:str = year+"/lapchart_"+gppath+".html"
+        self.laptimes_path:str = year+"/laptime_"+gppath+".html"        
 
         print(mainGpUrl)
         print(self.main_path)
@@ -145,6 +146,7 @@ class Crawlf1web2022:
         ## main URL
         print("Main URL:"+ self.main_url)
         main_html:str=downloadUrl(self.main_url)
+        print("self.main_path:"+ self.main_path)
         saveWeb(main_html,self.main_path)
         soup = BeautifulSoup(main_html, 'html.parser')
         print("parseado:"+ soup.title.string)
@@ -1040,7 +1042,7 @@ class Crawlf1web2022:
         print("-------FIN----------")
 
     def export2Json(self, gppath):
-        path_gpinfo : str = "2022export/gpinfo"
+        path_gpinfo : str = self.year+"export/gpinfo"
         print("------GPINFO-----------")
         print(self.gpInfo)
         print("-----------------")
@@ -1062,7 +1064,7 @@ class Crawlf1web2022:
         drivers_str = drivers_str[:-1] # remove last ,
         drivers_str += "]}"
         print(drivers_str)
-        path_drivers : str = "2022export/drivers"
+        path_drivers : str = self.year+"export/drivers"
         file_drivers = open(path_drivers+gppath+".json", "w")
         file_drivers.write(drivers_str)
         file_drivers.close()
@@ -1078,7 +1080,7 @@ class Crawlf1web2022:
         lapchart_str += "}"
         print(lapchart_str)
 
-        path_lapchart : str = "2022export/lapchart"
+        path_lapchart : str = self.year+"export/lapchart"
         file_lapchart = open(path_lapchart+gppath+".json", "w")
         file_lapchart.write(lapchart_str)
         file_lapchart.close()
@@ -1097,7 +1099,7 @@ class Crawlf1web2022:
         laptime_str += "}"
         print(laptime_str)
 
-        path_laptime : str = "2022export/laptime"
+        path_laptime : str = self.year+"export/laptime"
         file_laptime = open(path_laptime+gppath+".json", "w")
         file_laptime.write(laptime_str)
         file_laptime.close()
@@ -1110,7 +1112,7 @@ class Crawlf1web2022:
         starting_grid = starting_grid[:-1] # remove last ,           
         starting_grid += "]"
         print(starting_grid)        
-        path_starting_grid : str = "2022export/starting_grid"
+        path_starting_grid : str = self.year+"export/starting_grid"
         file_starting_grid = open(path_starting_grid+gppath+".json", "w")
         file_starting_grid.write(starting_grid)
         file_starting_grid.close()
@@ -1129,7 +1131,7 @@ class Crawlf1web2022:
         pits_str = pits_str[:-1] # remove last ,           
         pits_str += "}"
         print(pits_str)
-        path_pits : str = "2022export/pit_stops"
+        path_pits : str = self.year+"export/pit_stops"
         file_pits = open(path_pits+gppath+".json", "w")
         file_pits.write(pits_str)
         file_pits.close()        
@@ -1150,7 +1152,7 @@ class Crawlf1web2022:
         tyres_str = tyres_str[:-1] # remove last ,           
         tyres_str += "}"
         print(tyres_str)
-        path_tyres : str = "2022export/tyres"
+        path_tyres : str = self.year+"export/tyres"
         file_tyres = open(path_tyres+gppath+".json", "w")
         file_tyres.write(tyres_str)
         file_tyres.close()
